@@ -243,6 +243,23 @@ footer{border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;align
   .startup-name{font-size:1.8rem;}
 }
 @media(max-width:420px){.exp-grid{grid-template-columns:1fr;}}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:2rem 1.5rem;overflow-y:auto;backdrop-filter:blur(8px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--black2);border:1px solid var(--border2);border-radius:12px;max-width:680px;width:100%;margin:auto;padding:3rem 3rem 2.5rem;position:relative;animation:mfade .3s ease;}
+@keyframes mfade{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;color:var(--w2);font-size:1.2rem;cursor:none;padding:.25rem .5rem;transition:color .2s;}
+.modal-close:hover{color:var(--yellow);}
+.modal-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:.75rem;}
+.modal-date{font-family:var(--mono);font-size:.62rem;color:var(--w3);margin-bottom:1.5rem;letter-spacing:.06em;}
+.modal-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.1;letter-spacing:-.01em;margin-bottom:2rem;color:var(--white);}
+.modal-body{font-size:.95rem;color:var(--w2);line-height:1.95;font-weight:300;}
+.modal-body p{margin-bottom:1.1rem;}
+.modal-footer{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-author{font-family:var(--mono);font-size:.62rem;color:var(--w3);}
+.modal-back{font-family:var(--mono);font-size:.62rem;color:var(--yellow);background:none;border:none;cursor:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;}
+.modal-back:hover{opacity:.7;}
 </style>
 </head>
 <body>
@@ -353,121 +370,121 @@ footer{border-top:1px solid var(--border);padding:2rem 2.5rem;display:flex;align
 <section class="sec" id="writing">
   <div class="sec-row rv"><span class="sec-n">03</span><span class="sec-lbl">Writing</span><div class="sec-rule"></div></div>
   <div class="blog-grid rv" id="blog-grid">
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/wave-of-change" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('wave-of-change');return false;">
       <div class="blog-date">Apr 24, 2026 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">Wave of Change...</div>
       <div class="blog-excerpt">It is about the wind of change. Not really a wind, but a wave. A wave is consistent with its flow and that makes it different from everything regular.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/waste-of-time" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('waste-of-time');return false;">
       <div class="blog-date">Apr 17, 2026 &nbsp;·&nbsp; Essay</div>
       <div class="blog-title">Waste of Time...</div>
       <div class="blog-excerpt">A story of joy and sadness. When we are happy, it is mostly because of some good deed. But what about the days that just feel wasted?</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/get-up-buddy" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('get-up-buddy');return false;">
       <div class="blog-date">Apr 10, 2026 &nbsp;·&nbsp; Story</div>
       <div class="blog-title">Get Up Buddy!</div>
       <div class="blog-excerpt">That is the same line one of my friends said to me. After JEE, after the chaos - sometimes all you need is someone to say: get up.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/the-rat-race" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('the-rat-race');return false;">
       <div class="blog-date">Apr 3, 2026 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">The Rat Race...</div>
       <div class="blog-excerpt">The JEE race has finally begun. I was neither pressurised, nor did I ever wish for it. But here I am, still figuring out what I actually want.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/rain-rain-go-away" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('rain-rain-go-away');return false;">
       <div class="blog-date">Mar 20, 2026 &nbsp;·&nbsp; Observation</div>
       <div class="blog-title">Rain Rain Go Away...</div>
       <div class="blog-excerpt">It is the second half of March and it has started raining heavily in Uttarakhand. A sarcastic take on weather, life, and the things we cannot control.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/after-a-break" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('after-a-break');return false;">
       <div class="blog-date">Mar 13, 2026 &nbsp;·&nbsp; Personal</div>
       <div class="blog-title">After a Break...</div>
       <div class="blog-excerpt">My last blog was on August 10. Today is March 13. Was it really a break? I do not know. But I am back, and this time I mean it.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/let-s-express-it" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('lets-express-it');return false;">
       <div class="blog-date">Aug 10, 2025 &nbsp;·&nbsp; Essay</div>
       <div class="blog-title">Let's Express It...</div>
       <div class="blog-excerpt">Back with another blog on a not so amazing Sunday. Sometimes the only way through is to just say it out loud, or write it down.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/breaks" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('breaks');return false;">
       <div class="blog-date">Aug 3, 2025 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">Breaks...</div>
       <div class="blog-excerpt">It is another Sunday, friendship day it is. I am late again. But breaks are necessary, and this one taught me more than I expected.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/its-stressful" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('its-stressful');return false;">
       <div class="blog-date">Jul 20, 2025 &nbsp;·&nbsp; Personal</div>
       <div class="blog-title">Its Stressful...</div>
       <div class="blog-excerpt">The title should explain the reason itself. Some weeks are just heavier than others. This is one of those weeks, written honestly.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/be-calm" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('be-calm');return false;">
       <div class="blog-date">Jul 13, 2025 &nbsp;·&nbsp; Essay</div>
       <div class="blog-title">Be Calm...</div>
       <div class="blog-excerpt">Back with another blog post. I could not write on time because life had other plans. But calm is something I keep coming back to.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/is-it-done" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('is-it-done');return false;">
       <div class="blog-date">Jul 6, 2025 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">Is it done?</div>
       <div class="blog-excerpt">A question I keep asking myself. About tasks, goals, chapters of life. Sometimes you do not know something is done until you look back.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/heyy-welcome-to-july-are-you-ready" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('welcome-to-july');return false;">
       <div class="blog-date">Jul 1, 2025 &nbsp;·&nbsp; Personal</div>
       <div class="blog-title">Heyy... Welcome to July! Are you ready?</div>
       <div class="blog-excerpt">A new month, a fresh start, and the same old me trying to figure things out. July always feels like a reset button nobody asked for.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/reading-writing-isn-t-always-studying" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('reading-writing');return false;">
       <div class="blog-date">Jun 24, 2025 &nbsp;·&nbsp; Essay</div>
       <div class="blog-title">Reading & Writing isn't always Studying...!</div>
       <div class="blog-excerpt">There is a difference between studying and actually reading. One is forced. The other is chosen. And that choice changes everything about how you absorb the world.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/does-it-really-matter" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('does-it-matter');return false;">
       <div class="blog-date">Jun 22, 2025 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">Does it really matter...?</div>
       <div class="blog-excerpt">A question worth asking before you spiral. Most of what we stress about, most of what keeps us up at night - does it really matter in the end?</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/keep-it-going-like-it-does" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('keep-it-going');return false;">
       <div class="blog-date">Jun 17, 2025 &nbsp;·&nbsp; Motivation</div>
       <div class="blog-title">Keep It Going Like It Does...</div>
       <div class="blog-excerpt">Consistency is not glamorous. It is just showing up, again and again, even when no one is watching and you are not sure it is working.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/i-am-really-very-late" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('very-late');return false;">
       <div class="blog-date">Jun 10, 2025 &nbsp;·&nbsp; Personal</div>
       <div class="blog-title">I am really very late...</div>
       <div class="blog-excerpt">Yes, I am late. Again. But being late sometimes means you were busy actually living - and that is not always a bad thing.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/was-it-really-a-mood-off" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('mood-off');return false;">
       <div class="blog-date">Jun 8, 2025 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">Was it really a Mood Off?</div>
       <div class="blog-excerpt">We call it a bad mood. But sometimes it is something deeper - a sign that something needs to change, or that you need to rest.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/just-do-it" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('just-do-it');return false;">
       <div class="blog-date">Jun 3, 2025 &nbsp;·&nbsp; Motivation</div>
       <div class="blog-title">Just do it...</div>
       <div class="blog-excerpt">Stop overthinking. Stop waiting for the perfect moment. The moment is now. It always was. Just do the thing and figure the rest out later.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/a-new-beginning" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('new-beginning');return false;">
       <div class="blog-date">Jun 1, 2025 &nbsp;·&nbsp; Personal</div>
       <div class="blog-title">A new Beginning...</div>
       <div class="blog-excerpt">Every beginning feels the same - exciting, terrifying, full of possibility. This one was no different. But something about it felt more real.</div>
       <div class="blog-tag">Read &#x2197;</div>
     </a>
-    <a class="blog-card" href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/post/i-guess-its-the-date" target="_blank" rel="noopener">
+    <a class="blog-card" href="#" onclick="openBlog('its-the-date');return false;">
       <div class="blog-date">May 27, 2025 &nbsp;·&nbsp; Reflection</div>
       <div class="blog-title">I guess, its the date!</div>
       <div class="blog-excerpt">Dates have a strange power. They remind you of where you were, who you were, what you were feeling exactly a year ago. Time is funny like that.</div>
@@ -667,6 +684,167 @@ function sendForm(e){
   btn.textContent="Sent!";btn.style.background="#6bcf7f";
   setTimeout(()=>{btn.textContent="Send Message";btn.style.background="";e.target.reset();},3000);
 }
+
+const BLOGS = {
+  "wave-of-change": {
+    title: "Wave of Change...",
+    date: "Apr 24, 2026",
+    tag: "Reflection",
+    body: `<p>So yeah, again a late blog. I am studying these days for an upcoming exam and it just gets super frustrated in the middle of everything. Today, I might write short, but it is about the wind of change.</p><p>Not really a wind, but a wave I must say. As wind is not just a single air of air, but a constant or maybe regular flow of air. But wave - it is consistent with its flow and I just do not count it in regular stuff. A wave is something different.</p><p>So, by the title, you must have understood what I mean. Change is not a sudden gust. It is a wave - slow, consistent, and impossible to stop once it starts. You either ride it or get swept under.</p><p>And right now, I feel a wave coming. In my studies, in my thinking, in the way I see things around me. Something is shifting. I cannot name it yet. But I feel it.</p><p>That is the thing about waves - you feel them before you see them.</p>`
+  },
+  "waste-of-time": {
+    title: "Waste of Time...",
+    date: "Apr 17, 2026",
+    tag: "Essay",
+    body: `<p>A worst kind of day I must say, and yes, another Friday. Welcome back to another blog. It has been a bit late while I am writing this, but to be honest, I am not really in a mood to write.</p><p>But just to keep up with consistency, I am here to share a story. A story of joy and sadness. Not from that Disney movie, instead about such expressions.</p><p>When we are happy and joyous, it is mostly because we must have done some or the other good deed. As for students, maybe they scored well in a test or submitted an assignment on time.</p><p>But what about the days that feel like a complete waste? You sit down, the clock moves, and you have nothing to show for it. Those days bother me more than the hard ones. At least the hard days have struggle in them. The wasted ones have nothing.</p><p>I think the trick is to not let too many of those pile up. One wasted day is human. A week of them is a choice.</p>`
+  },
+  "get-up-buddy": {
+    title: "Get Up Buddy!",
+    date: "Apr 10, 2026",
+    tag: "Story",
+    body: `<p>That is the same line one of my friends said to me. "Get up buddy!" And yes, that is the topic for today's blog.</p><p>Hey there everyone, welcome back to yet another Friday! So, I had just given my JEE exam a few days ago. It was horrible, like I am not among those serious aspirants, but still I would say that it went average or just okayish.</p><p>Now, coming back from the exam hall with that mixed feeling - not great, not terrible - I sat in the auto and just stared outside. And then my friend texted me: "Get up buddy. It is done now."</p><p>Three words. That is all it took. Get up. Move forward. It is done.</p><p>There is something about those words that hit differently when you are down. Not a lecture. Not advice. Just someone telling you to get back on your feet. Simple. Direct. Human.</p><p>I think we all need that person. And sometimes we need to be that person for someone else too.</p>`
+  },
+  "the-rat-race": {
+    title: "The Rat Race...",
+    date: "Apr 3, 2026",
+    tag: "Reflection",
+    body: `<p>The JEE race has finally begun. From the 2nd of April till 8th of April, we have JEE Exam! Now, obviously, while I talk of this, I am a part of this rat race.</p><p>I was neither pressurised, nor I ever wished of it myself after the hectic class 11th. But right now, I am still not willingly preparing for it, as my primary goal was never engineering.</p><p>So why am I here? Because sometimes life puts you in races you never signed up for. And you run anyway - not because you want to win, but because everyone around you is running and stopping feels wrong.</p><p>That is the rat race. Not just JEE. Not just exams. It is every system that makes you chase something you never chose for yourself.</p><p>I am running. But at least I know I am running. And maybe that awareness is the first step toward eventually choosing your own direction.</p>`
+  },
+  "rain-rain-go-away": {
+    title: "Rain Rain Go Away...",
+    date: "Mar 20, 2026",
+    tag: "Observation",
+    body: `<p>So, I am writing this blog in context of the weather that me, my family, and many others in my city and its neighbours are facing these days.</p><p>No, the title of this blog does not have any relation with the children's rhyme. Instead it is a sarcastic statement used by many people around. Yes, it is the second half of March and suddenly, it has started to rain heavily in a few regions of India.</p><p>Here in Uttarakhand, the rain is drenching everything. The mountains are hidden behind clouds. The roads are slippery. And everyone is wrapped in that strange mix of annoyance and quiet appreciation.</p><p>Because rain is like that. Inconvenient and beautiful at the same time. You cannot be fully angry at it. But you also cannot fully enjoy it when you have places to be.</p><p>I guess that is a metaphor for a lot of things in life. The things that slow you down are sometimes the same things that make everything green.</p>`
+  },
+  "after-a-break": {
+    title: "After a Break...",
+    date: "Mar 13, 2026",
+    tag: "Personal",
+    body: `<p>So, welcome back everyone! Or maybe I should welcome myself back on my site. It has been a really long time and I have just forgotten how I used to write my blogs, what format I had been using, and almost everything in it.</p><p>My last blog came out on August 10, and today is the 13th of March. I could have easily written at least 20 blogs in that time. But I did not. And I am not going to over-explain why.</p><p>Was it really a break? I am not sure. It felt more like life just took over. Exams, preparations, everything happening at once. Writing fell to the bottom of the list.</p><p>But here is what I know: coming back always feels harder than staying. The gap creates this pressure - like whatever you write next has to justify the silence. It does not. It just has to be honest.</p><p>So here I am. Honest. A little rusty. But back.</p>`
+  },
+  "lets-express-it": {
+    title: "Let's Express It...",
+    date: "Aug 10, 2025",
+    tag: "Essay",
+    body: `<p>I am back with another blog on this not so amazing Sunday! There is something about Sundays that makes you want to either do everything or nothing at all.</p><p>Today I chose to write. And the topic is expression - the act of putting what is inside you on the outside. Whether through words, art, music, or just a conversation with someone you trust.</p><p>We are not taught enough about expression. We are taught to hold things in. To be composed. To not make it awkward. But the things we hold in do not disappear - they just pile up in places we cannot see.</p><p>Expression is not weakness. It is maintenance. Like cleaning out a room that has gotten too cluttered to move in.</p><p>So express it. Write it. Say it. Paint it. Whatever works for you. Just do not keep it inside forever.</p>`
+  },
+  "breaks": {
+    title: "Breaks...",
+    date: "Aug 3, 2025",
+    tag: "Reflection",
+    body: `<p>I am back with another blog. It is another Sunday, friendship day it is. I am late again.</p><p>But today I want to write about breaks. Not the kind you take between study sessions. The real kind - where you step away from everything for a while and just exist without producing anything.</p><p>Breaks are underrated. We live in a culture that glorifies hustle and treats rest as laziness. But rest is not the opposite of productivity. It is the foundation of it.</p><p>I took a break last week. Did not write. Did not post. Did not plan. Just spent time with people I care about and let my mind wander without any agenda.</p><p>And I came back clearer. More myself. Less anxious about the things that had felt urgent before.</p><p>Sometimes the most productive thing you can do is stop. Completely. And let yourself be a person again instead of a machine trying to output things.</p>`
+  },
+  "its-stressful": {
+    title: "Its Stressful...",
+    date: "Jul 20, 2025",
+    tag: "Personal",
+    body: `<p>Hello there, welcome back to another blog. Once again, I am late. But I must say that the title should explain the reason to you very clearly.</p><p>It is stressful. That is the most honest thing I can say right now. Everything feels heavy at once - academics, expectations, the future, the uncertainty of what comes next.</p><p>I do not have a solution to offer today. No neat takeaway. No "here is what I learned from stress." Sometimes things are just hard and that is where they are.</p><p>What I will say is this - talking about it helps. Even writing about it helps. The moment you name the weight, it becomes slightly less heavy. Not gone. Just lighter.</p><p>If you are stressed too, I hope you find something today that gives you even five minutes of peace. That is enough. Five minutes at a time is how we get through the hard weeks.</p>`
+  },
+  "be-calm": {
+    title: "Be Calm...",
+    date: "Jul 13, 2025",
+    tag: "Essay",
+    body: `<p>So, here I am. Back with another blog post. Again I am late with this post, as I had some important work. I really could not write on time.</p><p>But today the topic chose itself: calm. Not the absence of chaos - because chaos is always there. But the ability to exist inside it without being consumed by it.</p><p>Calm is a skill. It is not something you either have or you do not. It is something you practise. You choose it, again and again, in moments where the easier choice is to panic or react.</p><p>I have been trying to practise it. When things go wrong, I try to pause before I respond. When my thoughts spiral, I try to notice them without following them all the way down.</p><p>It does not always work. But the trying matters.</p><p>Be calm. Not because everything is fine. But because calm is how you figure out what to do next.</p>`
+  },
+  "is-it-done": {
+    title: "Is it done?",
+    date: "Jul 6, 2025",
+    tag: "Reflection",
+    body: `<p>A question I keep asking myself. About tasks, goals, chapters of life. Sometimes you do not know something is done until you look back at it from a distance.</p><p>Is it done? The project, the phase, the version of yourself you were trying to become. How do you know when something is finished versus when you have just stopped?</p><p>I think done is different for everyone. Some things end with a clear moment - a deadline, a goodbye, a decision. Others just quietly fade until you realise one day that you are no longer doing that thing.</p><p>I have been thinking about what is done in my life right now. And what is still in progress. And what I keep telling myself I will start but never do.</p><p>The honest answer to "is it done?" is usually: it is done when you stop pretending it is not.</p>`
+  },
+  "welcome-to-july": {
+    title: "Heyy... Welcome to July! Are you ready?",
+    date: "Jul 1, 2025",
+    tag: "Personal",
+    body: `<p>A new month, a fresh start, and the same old me trying to figure things out. July always feels like a reset button nobody asked for but everyone secretly needed.</p><p>Half the year is gone. If you had goals for 2025, you are now at the halfway mark. That is either exciting or terrifying depending on how the first six months went.</p><p>For me, it has been a mix. Some things I am proud of. Some things I let slide. Some surprises - good and bad - that I did not see coming.</p><p>But July feels like permission to start again without starting over. You keep everything you learned and you just... redirect.</p><p>So, welcome to July. Are you ready? I am trying to be.</p>`
+  },
+  "reading-writing": {
+    title: "Reading & Writing isn't always Studying...!",
+    date: "Jun 24, 2025",
+    tag: "Essay",
+    body: `<p>There is a difference between studying and actually reading. One is forced. The other is chosen. And that choice changes everything about how you absorb the world.</p><p>When you read because you want to - not for an exam, not for a deadline - something different happens in your brain. You are present. You are curious. You follow the ideas wherever they go instead of underlining what will be tested.</p><p>Same with writing. Writing to express is different from writing to submit. The first one teaches you who you are. The second one teaches you what the rubric wants.</p><p>Both have their place. But we spend so much time on the second kind that we forget the first kind exists.</p><p>Read something today that no one assigned you. Write something that no one will grade. See what happens.</p>`
+  },
+  "does-it-matter": {
+    title: "Does it really matter...?",
+    date: "Jun 22, 2025",
+    tag: "Reflection",
+    body: `<p>A question worth asking before you spiral. Most of what we stress about, most of what keeps us up at night - does it really matter in the end?</p><p>Not in a dismissive way. Not "nothing matters so why try." More like: in five years, will this specific thing that is consuming your energy right now even be a memory?</p><p>Usually the answer is no. The embarrassing moment. The exam result. The argument. The opinion someone had about you.</p><p>The things that actually matter tend to be quieter. Health. Relationships. The work you are proud of. The person you are becoming slowly, without noticing.</p><p>So before you spiral next time, ask: does it really matter? If yes, deal with it. If no, let it go. The distinction is worth practising.</p>`
+  },
+  "keep-it-going": {
+    title: "Keep It Going Like It Does...",
+    date: "Jun 17, 2025",
+    tag: "Motivation",
+    body: `<p>Consistency is not glamorous. It is just showing up, again and again, even when no one is watching and you are not sure it is working.</p><p>I have been thinking about this a lot lately. The gap between starting something and actually building something is just... consistent effort over time. That is it. No secret. No shortcut.</p><p>The problem is that consistent effort looks boring from the outside. There is no big launch moment. No viral day. Just Monday, then Tuesday, then Wednesday, doing the thing you said you would do.</p><p>But compounding works. Small things done consistently become large things. The blog you write every week becomes a body of work. The skill you practise daily becomes a strength.</p><p>Keep it going like it does. Even on the days you do not feel like it. Especially on those days.</p>`
+  },
+  "very-late": {
+    title: "I am really very late...",
+    date: "Jun 10, 2025",
+    tag: "Personal",
+    body: `<p>Yes, I am late. Again. And this time I am not going to over-explain it or apologise too much for it.</p><p>Being late sometimes means you were busy actually living. Studying, talking to people, figuring things out in your head before putting them on a page.</p><p>There is pressure with any creative habit - the pressure to produce on schedule, to never miss, to be consistent in a way that is visible to others. But sometimes life does not fit that schedule.</p><p>I am really very late. And I am here anyway. Writing this, sending it out, continuing the habit even if the timing is off.</p><p>That is what matters more than the schedule: the returning. Coming back to the thing you care about, even when you drifted away from it for a bit.</p>`
+  },
+  "mood-off": {
+    title: "Was it really a Mood Off?",
+    date: "Jun 8, 2025",
+    tag: "Reflection",
+    body: `<p>We call it a bad mood. A mood off. Like our emotional state is a switch that accidentally got flipped into the wrong position.</p><p>But sometimes what we call a "mood off" is actually something deeper trying to get our attention. Tiredness that has gone unacknowledged. Frustration that has not found an outlet. A need for something we have not been giving ourselves.</p><p>Was it really a mood off? Or was it your mind and body telling you something you have been too busy to hear?</p><p>I think we would do better if we stopped dismissing our own states and started getting curious about them. Not overthinking - just checking in. What is actually going on here?</p><p>Sometimes it is just a mood. But sometimes it is a signal. Worth knowing the difference.</p>`
+  },
+  "just-do-it": {
+    title: "Just do it...",
+    date: "Jun 3, 2025",
+    tag: "Motivation",
+    body: `<p>Stop overthinking. Stop waiting for the perfect moment. Stop waiting until you feel ready, because that feeling rarely comes.</p><p>The moment is now. It always was. The idea you have been sitting on, the project you have been planning, the conversation you have been avoiding - just do the thing.</p><p>I have lost a lot of time to "I will do it when..." When I have more time. When I know more. When I feel more confident. When things settle down.</p><p>Things do not settle down. Confidence comes from doing, not from waiting to feel confident. You learn more by starting badly than by planning perfectly.</p><p>Just do it. Figure the rest out as you go. The version of you who started imperfectly will always be ahead of the version who waited for perfect.</p>`
+  },
+  "new-beginning": {
+    title: "A new Beginning...",
+    date: "Jun 1, 2025",
+    tag: "Personal",
+    body: `<p>Every beginning feels the same - exciting, terrifying, full of possibility. This one was no different. But something about it felt more real than the ones before it.</p><p>A new month. A new phase. A quiet decision to take some things more seriously and let others go entirely.</p><p>Beginnings are interesting because they are equal parts promise and pressure. You get a fresh start, but you also get the weight of everything you are bringing into it - all the unfinished things, the habits you are still trying to build, the person you are still trying to become.</p><p>But that is okay. A new beginning does not mean you erase everything before it. It means you choose what to carry forward and what to leave at the door.</p><p>I am leaving some things at the door. And I am carrying a few things in that matter to me more than I used to admit.</p>`
+  },
+  "its-the-date": {
+    title: "I guess, its the date!",
+    date: "May 27, 2025",
+    tag: "Reflection",
+    body: `<p>Dates have a strange power over us. They remind you of where you were, who you were, what you were feeling exactly a year ago. Time is funny like that.</p><p>Today is one of those dates for me. Nothing dramatic happened on this day. But something about it stuck - some memory, some feeling, some version of events that I keep returning to when this date comes around.</p><p>I think we underestimate how much our minds attach meaning to time markers. Anniversaries, birthdays, "this time last year." We use them to measure ourselves - am I further along? Am I different? Have I changed in the ways I wanted to?</p><p>Sometimes yes. Sometimes no. Sometimes I am not sure.</p><p>I guess it is the date. And it made me think. And thinking made me write. That is usually how these things go.</p>`
+  }
+};
+
+function openBlog(key) {
+  const b = BLOGS[key];
+  if (!b) return;
+  document.getElementById('m-tag').textContent = b.tag;
+  document.getElementById('m-date').textContent = b.date + '  ·  Harshit Singh';
+  document.getElementById('m-title').textContent = b.title;
+  document.getElementById('m-body').innerHTML = b.body;
+  document.getElementById('blog-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBlogModal() {
+  document.getElementById('blog-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('blog-modal')) closeBlogModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBlogModal(); });
+
 </script>
+
+<!-- BLOG MODAL -->
+<div class="modal-overlay" id="blog-modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeBlogModal()">✕</button>
+    <div class="modal-tag" id="m-tag"></div>
+    <div class="modal-date" id="m-date"></div>
+    <h2 class="modal-title" id="m-title"></h2>
+    <div class="modal-body" id="m-body"></div>
+    <div class="modal-footer">
+      <span class="modal-author">Harshit Singh</span>
+      <button class="modal-back" onclick="closeBlogModal()">← Back to site</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
