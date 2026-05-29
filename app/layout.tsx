@@ -36,10 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${instrumentSerif.variable}`}>
-        <div className="noise-overlay"></div>
-        {children}
-      </body>
+      <body className={`${dmSans.variable} ${instrumentSerif.variable}`}>{children}</body>
     </html>
   );
 }
