@@ -1,53 +1,66 @@
-# imharshitsingh.in
+# I'm Harshit Singh - Personal Portfolio
 
-MakOS-inspired personal portfolio + blog with a lightweight backend for blog publishing.
+A single-page, macOS-inspired portfolio for Harshit Singh built with Next.js 14, Tailwind CSS, and Framer Motion.
 
-## Stack
+## Tech Stack
 
-- Static HTML/CSS/JS frontend
-- Vercel Serverless Functions under `api/`
-- Blog data store in `data/blogs.json`
-- Optional GitHub API writeback for production publishing
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Lucide React + react-icons
+- Google Fonts: Instrument Serif + DM Sans
 
-## Pages
+## Run Locally
 
-- `index.html` - home workspace
-- `about.html` - profile
-- `projects.html` - work showcase
-- `writing.html` - blog list
-- `post.html` - blog detail
-- `book.html` - book landing
-- `contact.html` - contact
-- `admin.html` - blog admin panel
+```bash
+npm install
+npm run dev
+```
 
-## Backend Endpoints
+Then open `http://localhost:3000`.
 
-- `GET /api/blogs` - list published blogs
-- `GET /api/blogs?slug=...` - get one blog
-- `POST /api/admin/login` - admin auth
-- `GET /api/admin/session` - verify session
-- `POST /api/admin/publish` - publish new blog
-- `POST /api/admin/logout` - clear session
+## Project Structure
 
-## Environment Variables (Vercel)
+```text
+app/
+  layout.tsx
+  page.tsx
+  globals.css
+components/
+  GlassCard.tsx
+  Hero.tsx
+  SocialLinks.tsx
+  AIApps.tsx
+  Blogs.tsx
+  About.tsx
+  Contact.tsx
+  BookCard.tsx
+  BackgroundOrbs.tsx
+  DesktopBar.tsx
+  CustomCursor.tsx
+public/
+  avatar.jpg
+```
 
-Set these in Vercel Project Settings -> Environment Variables:
+## Update Avatar
 
-- `ADMIN_USERNAME`
-- `ADMIN_PASSWORD`
-- `ADMIN_SESSION_SECRET`
-- `GITHUB_TOKEN`
-- `GITHUB_OWNER`
-- `GITHUB_REPO`
-- `GITHUB_BRANCH`
-- `BLOG_DATA_PATH` (optional, default: `data/blogs.json`)
+1. Replace `public/avatar.jpg` with your own image.
+2. Keep the filename as `avatar.jpg`.
+3. Recommended: square image, at least `400x400`.
 
-## Auto redeploy flow
+## Update Blog Posts
 
-When `GITHUB_TOKEN` is configured:
+Blog items are hardcoded in:
 
-1. Admin publishes from `admin.html`
-2. API updates `data/blogs.json` in GitHub via commit
-3. GitHub push triggers Vercel redeploy automatically
+- `components/Blogs.tsx`
 
-Without GitHub token, API falls back to local file write (useful for local/dev only).
+Edit the `posts` array to change title/date list.
+
+## Deploy to Vercel
+
+1. Push this repo to GitHub.
+2. Import the repo in Vercel.
+3. Deploy (zero additional configuration needed).
+
+A minimal `vercel.json` is included.
