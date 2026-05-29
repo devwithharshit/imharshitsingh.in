@@ -31,6 +31,26 @@ interface FloatingItem {
   delay: number;
 }
 
+interface BookStoreLink {
+  label: string;
+  href: string;
+}
+
+const bookStoreLinks: BookStoreLink[] = [
+  {
+    label: "NotionPress",
+    href: "https://notionpress.com/in/read/phases-unexpected"
+  },
+  {
+    label: "Amazon",
+    href: "https://amzn.to/4u6wdH8"
+  },
+  {
+    label: "Flipkart",
+    href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true"
+  }
+];
+
 const dockLinks: DockLink[] = [
   {
     label: "LinkedIn",
@@ -51,6 +71,11 @@ const dockLinks: DockLink[] = [
     label: "Instagram",
     href: "https://instagram.com/imsinghharshit",
     icon: FaInstagram
+  },
+  {
+    label: "Book",
+    href: "https://notionpress.com/in/read/phases-unexpected",
+    icon: BookOpenText
   },
   {
     label: "Email",
@@ -98,9 +123,9 @@ const floatingItems: FloatingItem[] = [
     delay: 0.35
   },
   {
-    title: "My Book (Soon)",
-    caption: "A personal journey in progress",
-    href: "mailto:hi@imharshitsingh.in?subject=Book%20updates",
+    title: "Phases: Unexpected",
+    caption: "My book is now live",
+    href: "https://notionpress.com/in/read/phases-unexpected",
     image: "/avatar-yes.png",
     icon: BookOpenText,
     positionClass: "lg:left-[9%] lg:top-[43%]",
@@ -148,6 +173,17 @@ export default function Home() {
       </div>
       <div className="makos-overlay"></div>
 
+      <motion.p
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.75, delay: 0.1 }}
+        className="bg-mantra"
+      >
+        LET&apos;S JUST BE THE SIMPLEST, BEST, & KINDEST
+        <br />
+        VERSION OF OURSELVES!
+      </motion.p>
+
       <motion.aside
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -179,6 +215,32 @@ export default function Home() {
           <FloatingCard key={item.title} item={item} />
         ))}
       </section>
+
+      <motion.section
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.62, delay: 0.46 }}
+        className="book-panel"
+      >
+        <div className="book-panel-head">
+          <BookOpenText className="h-4 w-4 text-[#f0d65f]" />
+          <p>Phases: Unexpected</p>
+        </div>
+        <div className="book-store-links">
+          {bookStoreLinks.map((store) => (
+            <a
+              key={store.label}
+              href={store.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="book-store-link"
+            >
+              <span>{store.label}</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          ))}
+        </div>
+      </motion.section>
 
       <motion.a
         initial={{ opacity: 0, y: 20 }}

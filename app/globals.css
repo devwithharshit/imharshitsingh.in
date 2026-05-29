@@ -91,6 +91,25 @@ a {
   object-fit: cover;
 }
 
+.bg-mantra {
+  position: fixed;
+  top: 1.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 28;
+  width: min(1280px, calc(100% - 2.4rem));
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  line-height: 1.22;
+  font-size: clamp(0.9rem, 2.15vw, 2.3rem);
+  font-weight: 640;
+  color: rgba(247, 247, 247, 0.9);
+  text-shadow: 0 7px 26px rgba(0, 0, 0, 0.62);
+  pointer-events: none;
+}
+
 .identity-core {
   position: relative;
   z-index: 18;
@@ -180,6 +199,59 @@ a {
   color: var(--accent);
 }
 
+.book-panel {
+  position: fixed;
+  z-index: 35;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 6.65rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(18, 18, 18, 0.74);
+  backdrop-filter: blur(17px);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.35);
+  padding: 0.72rem;
+}
+
+.book-panel-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.book-panel-head p {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.book-store-links {
+  margin-top: 0.62rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.book-store-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 0.37rem 0.62rem;
+  font-size: 0.72rem;
+  color: #f4f4f4;
+  background: rgba(255, 255, 255, 0.06);
+  transition: 220ms ease;
+}
+
+.book-store-link:hover {
+  border-color: rgba(240, 214, 95, 0.64);
+  color: var(--accent);
+  background: rgba(240, 214, 95, 0.14);
+}
+
 .makos-dock {
   position: fixed;
   z-index: 40;
@@ -241,7 +313,7 @@ a {
 
   .makos-dock {
     width: auto;
-    grid-template-columns: repeat(7, minmax(0, 102px));
+    grid-template-columns: repeat(8, minmax(0, 100px));
   }
 
   .dock-item {
@@ -251,9 +323,23 @@ a {
   .dock-item span {
     font-size: 0.67rem;
   }
+
+  .book-panel {
+    left: 0.95rem;
+    right: auto;
+    bottom: 7.45rem;
+    width: 320px;
+  }
 }
 
 @media (max-width: 680px) {
+  .bg-mantra {
+    top: 0.95rem;
+    width: calc(100% - 1.1rem);
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+  }
+
   .brand-tag {
     top: 0.8rem;
     left: 0.8rem;
@@ -262,8 +348,12 @@ a {
     border-radius: 15px;
   }
 
+  .book-panel {
+    bottom: 8.8rem;
+  }
+
   .quick-link {
-    bottom: 8.7rem;
+    bottom: 13rem;
   }
 
   .makos-dock {
