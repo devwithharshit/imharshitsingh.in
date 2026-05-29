@@ -1,285 +1,372 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
-import type { ComponentType } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  Bot,
   BookOpenText,
-  ExternalLink,
-  FileText,
+  Bot,
+  Github,
+  Instagram,
+  Linkedin,
   Mail,
-  Rocket
+  NotebookText,
+  Rocket,
+  StickyNote,
+  X,
+  type LucideIcon
 } from "lucide-react";
-import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { useState } from "react";
 
-type IconComponent = ComponentType<{ className?: string }>;
-
-interface DockLink {
-  label: string;
-  href: string;
-  icon: IconComponent;
-}
-
-interface FloatingItem {
+interface BlogApp {
   title: string;
-  caption: string;
+  date: string;
   href: string;
-  image: string;
-  icon: IconComponent;
+  imageClass: string;
   positionClass: string;
   delay: number;
 }
 
-interface BookStoreLink {
+type NotesTab = "experience" | "about";
+
+interface DockLinkItem {
+  type: "link";
   label: string;
   href: string;
+  icon: LucideIcon;
+  toneClass: string;
 }
 
-const bookStoreLinks: BookStoreLink[] = [
+interface DockNotesItem {
+  type: "notes";
+  label: string;
+  icon: LucideIcon;
+  toneClass: string;
+}
+
+type DockItem = DockLinkItem | DockNotesItem;
+
+const blogUrl = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/blog";
+
+const blogApps: BlogApp[] = [
   {
-    label: "NotionPress",
-    href: "https://notionpress.com/in/read/phases-unexpected"
+    title: "Wave of change...",
+    date: "Apr 24, 2026",
+    href: blogUrl,
+    imageClass: "tile-a",
+    positionClass: "pos-a",
+    delay: 0.08
   },
   {
-    label: "Amazon",
-    href: "https://amzn.to/4u6wdH8"
+    title: "Waste of time...",
+    date: "Apr 17, 2026",
+    href: blogUrl,
+    imageClass: "tile-b",
+    positionClass: "pos-b",
+    delay: 0.14
   },
   {
-    label: "Flipkart",
-    href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true"
+    title: "Get up buddy!",
+    date: "Apr 10, 2026",
+    href: blogUrl,
+    imageClass: "tile-c",
+    positionClass: "pos-c",
+    delay: 0.2
+  },
+  {
+    title: "The Rat Race...",
+    date: "Apr 3, 2026",
+    href: blogUrl,
+    imageClass: "tile-d",
+    positionClass: "pos-d",
+    delay: 0.26
+  },
+  {
+    title: "Rain rain go away...",
+    date: "Mar 20, 2026",
+    href: blogUrl,
+    imageClass: "tile-e",
+    positionClass: "pos-e",
+    delay: 0.32
+  },
+  {
+    title: "After a break...",
+    date: "Mar 13, 2026",
+    href: blogUrl,
+    imageClass: "tile-f",
+    positionClass: "pos-f",
+    delay: 0.38
   }
 ];
 
-const dockLinks: DockLink[] = [
+const dockItems: DockItem[] = [
   {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/imharshitsinghin",
-    icon: FaLinkedinIn
+    type: "notes",
+    label: "Notes",
+    icon: StickyNote,
+    toneClass: "tone-notes"
   },
   {
+    type: "link",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/imharshitsinghin/",
+    icon: Linkedin,
+    toneClass: "tone-linkedin"
+  },
+  {
+    type: "link",
     label: "X",
     href: "https://x.com/HarshitSingh_in",
-    icon: FaXTwitter
+    icon: X,
+    toneClass: "tone-x"
   },
   {
+    type: "link",
     label: "GitHub",
     href: "https://github.com/devwithharshit",
-    icon: FaGithub
+    icon: Github,
+    toneClass: "tone-github"
   },
   {
+    type: "link",
     label: "Instagram",
     href: "https://instagram.com/imsinghharshit",
-    icon: FaInstagram
+    icon: Instagram,
+    toneClass: "tone-instagram"
   },
   {
-    label: "Book",
-    href: "https://notionpress.com/in/read/phases-unexpected",
-    icon: BookOpenText
-  },
-  {
-    label: "Email",
-    href: "mailto:hi@imharshitsingh.in",
-    icon: Mail
-  },
-  {
+    type: "link",
     label: "ReProfiled",
     href: "https://reprofiled.vercel.app/",
-    icon: Rocket
+    icon: Rocket,
+    toneClass: "tone-reprofiled"
   },
   {
+    type: "link",
     label: "ReachOutBotAI",
     href: "https://reachoutbotai.vercel.app/",
-    icon: Bot
-  }
-];
-
-const floatingItems: FloatingItem[] = [
-  {
-    title: "Chronicles by Harshit",
-    caption: "Weekly thoughts and reflections",
-    href: "https://harshitsinghofcl.wixsite.com/chronicles-by-h/blog",
-    image: "/portrait-magic.jpeg",
-    icon: FileText,
-    positionClass: "lg:left-[10%] lg:top-[17%]",
-    delay: 0.15
-  },
-  {
-    title: "ReProfiled",
-    caption: "AI resume and profile optimizer",
-    href: "https://reprofiled.vercel.app/",
-    image: "/brand-imhs.png",
-    icon: Rocket,
-    positionClass: "lg:right-[11%] lg:top-[14%]",
-    delay: 0.25
-  },
-  {
-    title: "ReachOutBotAI",
-    caption: "AI outreach automation engine",
-    href: "https://reachoutbotai.vercel.app/",
-    image: "/avatar-cutout.png",
     icon: Bot,
-    positionClass: "lg:right-[10%] lg:top-[38%]",
-    delay: 0.35
+    toneClass: "tone-reachout"
   },
   {
-    title: "Phases: Unexpected",
-    caption: "My book is now live",
+    type: "link",
+    label: "Book (NotionPress)",
     href: "https://notionpress.com/in/read/phases-unexpected",
-    image: "/avatar-yes.png",
     icon: BookOpenText,
-    positionClass: "lg:left-[9%] lg:top-[43%]",
-    delay: 0.45
+    toneClass: "tone-book"
+  },
+  {
+    type: "link",
+    label: "Book (Amazon)",
+    href: "https://amzn.to/4u6wdH8",
+    icon: BookOpenText,
+    toneClass: "tone-book"
+  },
+  {
+    type: "link",
+    label: "Book (Flipkart)",
+    href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true",
+    icon: BookOpenText,
+    toneClass: "tone-book"
+  },
+  {
+    type: "link",
+    label: "Blogs",
+    href: blogUrl,
+    icon: NotebookText,
+    toneClass: "tone-blogs"
+  },
+  {
+    type: "link",
+    label: "Email",
+    href: "mailto:hi@imharshitsingh.in",
+    icon: Mail,
+    toneClass: "tone-mail"
   }
 ];
 
-function FloatingCard({ item }: { item: FloatingItem }) {
-  const Icon = item.icon;
-
-  return (
-    <motion.a
-      href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay: item.delay }}
-      whileHover={{ y: -7, scale: 1.02 }}
-      className={"floating-card " + item.positionClass}
-    >
-      <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-white/15 bg-white/10">
-        <Image src={item.image} alt={item.title} fill className="object-cover" />
-      </div>
-      <div className="flex-1">
-        <p className="text-sm font-medium text-[#f1f1f1]">{item.title}</p>
-        <p className="text-xs text-[#c9c9c9]">{item.caption}</p>
-      </div>
-      <Icon className="h-4 w-4 text-[#f0d65f]" />
-    </motion.a>
-  );
-}
+const notesData = {
+  experience: {
+    date: "May 29, 2026",
+    title: "Experience",
+    lines: [
+      "Founder, ReProfiled (2026 - Present)",
+      "Building an AI-powered resume and professional profile optimizer.",
+      "",
+      "Founder, ReachOutBotAI (2026 - Present)",
+      "Building AI outreach automation to help people connect and network faster.",
+      "",
+      "Author, Phases: Unexpected (2026)",
+      "Published and distributed on NotionPress, Amazon, and Flipkart.",
+      "",
+      "Writer, Chronicles by Harshit",
+      "Publishing weekly reflections on life, growth, and mindset."
+    ]
+  },
+  about: {
+    date: "May 29, 2026",
+    title: "About",
+    lines: [
+      "Hey! I'm Harshit - a 17-year-old from Uttarakhand, India.",
+      "",
+      "I'm passionate about AI, building products that matter, and writing honestly about life.",
+      "",
+      "I build AI apps, write weekly blogs, and explore the intersection of tech and creativity.",
+      "",
+      "My goal is to craft my own path and build things that help people."
+    ]
+  }
+};
 
 export default function Home() {
-  return (
-    <main className="makos-page">
-      <div className="makos-backdrop">
-        <Image
-          src="/portrait-pp.png"
-          alt="Harshit Singh background portrait"
-          fill
-          priority
-          className="object-cover object-center md:object-[center_24%]"
-        />
-      </div>
-      <div className="makos-overlay"></div>
+  const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<NotesTab>("experience");
 
+  return (
+    <main className="scene-wrap">
+      <div className="quote-spotlight" />
       <motion.p
-        initial={{ opacity: 0, y: -12 }}
+        className="quote-center"
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, delay: 0.1 }}
-        className="bg-mantra"
+        transition={{ duration: 0.8 }}
       >
         LET&apos;S JUST BE THE SIMPLEST, BEST, & KINDEST
         <br />
         VERSION OF OURSELVES!
       </motion.p>
 
-      <motion.aside
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="brand-tag"
-      >
-        <Image src="/brand-imhs.png" alt="imhs brand mark" width={116} height={116} />
-      </motion.aside>
-
-      <motion.section
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.72, delay: 0.08 }}
-        className="identity-core"
-      >
-        <p className="identity-overline">I&apos;m Harshit Singh</p>
-        <h1>Builder. Writer. AI Enthusiast.</h1>
-        <p className="identity-sub">
-          Live it Simple, Live it Kind, Just don&apos;t Mind!
-        </p>
-        <p className="identity-body">
-          Teen creator from India building useful AI products, documenting ideas, and shaping
-          my own path with consistency.
-        </p>
-      </motion.section>
-
-      <section className="floating-zone">
-        {floatingItems.map((item) => (
-          <FloatingCard key={item.title} item={item} />
+      <section className="desktop-blog-cloud" aria-label="Blog apps">
+        {blogApps.map((blog) => (
+          <motion.a
+            key={blog.title}
+            href={blog.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`desktop-blog-app ${blog.positionClass}`}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: blog.delay }}
+            whileHover={{ y: -5, scale: 1.04 }}
+          >
+            <div className={`blog-app-tile ${blog.imageClass}`}>
+              <span>✍️</span>
+            </div>
+            <span className="blog-app-title">{blog.title}</span>
+            <span className="blog-app-date">{blog.date}</span>
+          </motion.a>
         ))}
       </section>
 
-      <motion.section
-        initial={{ opacity: 0, y: 22 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.62, delay: 0.46 }}
-        className="book-panel"
-      >
-        <div className="book-panel-head">
-          <BookOpenText className="h-4 w-4 text-[#f0d65f]" />
-          <p>Phases: Unexpected</p>
-        </div>
-        <div className="book-store-links">
-          {bookStoreLinks.map((store) => (
-            <a
-              key={store.label}
-              href={store.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="book-store-link"
-            >
-              <span>{store.label}</span>
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.a
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.55 }}
-        href="https://harshitsinghofcl.wixsite.com/chronicles-by-h/blog"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="quick-link"
-      >
-        <span>Read all blogs</span>
-        <ExternalLink className="h-4 w-4" />
-      </motion.a>
-
       <motion.nav
+        className="makos-dock-bar"
         initial={{ opacity: 0, y: 26 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2 }}
-        className="makos-dock"
       >
-        {dockLinks.map((link) => {
-          const Icon = link.icon;
+        {dockItems.map((item) => {
+          const Icon = item.icon;
+
+          if (item.type === "notes") {
+            return (
+              <button
+                key={item.label}
+                type="button"
+                className={`dock-icon-button ${item.toneClass}`}
+                onClick={() => {
+                  setActiveTab("experience");
+                  setIsNotesOpen(true);
+                }}
+                aria-label={item.label}
+                title={item.label}
+              >
+                <Icon className="h-6 w-6" />
+              </button>
+            );
+          }
+
           return (
-            <motion.a
-              key={link.label}
-              href={link.href}
+            <a
+              key={item.label}
+              href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={link.label}
-              whileHover={{ y: -7, scale: 1.14 }}
-              transition={{ type: "spring", stiffness: 320, damping: 18 }}
-              className="dock-item"
+              className={`dock-icon-button ${item.toneClass}`}
+              aria-label={item.label}
+              title={item.label}
             >
-              <Icon className="h-5 w-5" />
-              <span>{link.label}</span>
-            </motion.a>
+              <Icon className="h-6 w-6" />
+            </a>
           );
         })}
       </motion.nav>
+
+      <AnimatePresence>
+        {isNotesOpen ? (
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="notes-overlay"
+            onClick={() => setIsNotesOpen(false)}
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 14, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="notes-window"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <header className="notes-window-top">
+                <div className="window-dots" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <p>Notes</p>
+                <button
+                  type="button"
+                  className="notes-close"
+                  onClick={() => setIsNotesOpen(false)}
+                  aria-label="Close notes"
+                >
+                  ×
+                </button>
+              </header>
+
+              <div className="notes-layout">
+                <aside className="notes-sidebar">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("experience")}
+                    className={activeTab === "experience" ? "note-tab active" : "note-tab"}
+                  >
+                    <strong>Experience</strong>
+                    <span>From LinkedIn details</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("about")}
+                    className={activeTab === "about" ? "note-tab active" : "note-tab"}
+                  >
+                    <strong>About</strong>
+                    <span>From LinkedIn details</span>
+                  </button>
+                </aside>
+
+                <section className="notes-content">
+                  <p className="notes-date">{notesData[activeTab].date}</p>
+                  <h2>{notesData[activeTab].title}</h2>
+                  <div className="notes-lines">
+                    {notesData[activeTab].lines.map((line, index) => (
+                      <p key={`${line}-${index}`}>{line}</p>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            </motion.article>
+          </motion.section>
+        ) : null}
+      </AnimatePresence>
     </main>
   );
 }

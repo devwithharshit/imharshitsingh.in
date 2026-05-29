@@ -14,7 +14,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "I'm Harshit Singh - Builder, Writer, AI Enthusiast",
+  title: "I'm Harshit Singh",
   description:
     "Personal site of Harshit Singh - teen AI builder, blogger, and aspiring entrepreneur from India.",
   openGraph: {
