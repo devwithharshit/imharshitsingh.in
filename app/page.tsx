@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import {
   BookOpenText,
   Bot,
@@ -10,13 +11,13 @@ import {
   Mail,
   NotebookText,
   Rocket,
-  StickyNote,
   X,
   type LucideIcon
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface BlogApp {
+  id: string;
   title: string;
   date: string;
   href: string;
@@ -25,7 +26,7 @@ interface BlogApp {
   delay: number;
 }
 
-type NotesTab = "experience" | "about";
+type InfoTab = "experience" | "about";
 
 interface DockLinkItem {
   type: "link";
@@ -35,19 +36,19 @@ interface DockLinkItem {
   toneClass: string;
 }
 
-interface DockNotesItem {
-  type: "notes";
+interface DockAboutItem {
+  type: "about";
   label: string;
-  icon: LucideIcon;
-  toneClass: string;
 }
 
-type DockItem = DockLinkItem | DockNotesItem;
+type DockItem = DockAboutItem | DockLinkItem;
 
+const linkedInHeadline = "Builder, Writer, AI Enthusiast, Aspiring Entrepreneur.";
 const blogUrl = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/blog";
 
 const blogApps: BlogApp[] = [
   {
+    id: "wave",
     title: "Wave of change...",
     date: "Apr 24, 2026",
     href: blogUrl,
@@ -56,6 +57,7 @@ const blogApps: BlogApp[] = [
     delay: 0.08
   },
   {
+    id: "waste",
     title: "Waste of time...",
     date: "Apr 17, 2026",
     href: blogUrl,
@@ -64,6 +66,7 @@ const blogApps: BlogApp[] = [
     delay: 0.14
   },
   {
+    id: "get-up",
     title: "Get up buddy!",
     date: "Apr 10, 2026",
     href: blogUrl,
@@ -72,6 +75,7 @@ const blogApps: BlogApp[] = [
     delay: 0.2
   },
   {
+    id: "rat-race",
     title: "The Rat Race...",
     date: "Apr 3, 2026",
     href: blogUrl,
@@ -80,6 +84,7 @@ const blogApps: BlogApp[] = [
     delay: 0.26
   },
   {
+    id: "rain",
     title: "Rain rain go away...",
     date: "Mar 20, 2026",
     href: blogUrl,
@@ -88,6 +93,7 @@ const blogApps: BlogApp[] = [
     delay: 0.32
   },
   {
+    id: "break",
     title: "After a break...",
     date: "Mar 13, 2026",
     href: blogUrl,
@@ -99,10 +105,8 @@ const blogApps: BlogApp[] = [
 
 const dockItems: DockItem[] = [
   {
-    type: "notes",
-    label: "Notes",
-    icon: StickyNote,
-    toneClass: "tone-notes"
+    type: "about",
+    label: "About Me"
   },
   {
     type: "link",
@@ -183,7 +187,7 @@ const dockItems: DockItem[] = [
   }
 ];
 
-const notesData = {
+const infoData = {
   experience: {
     date: "May 29, 2026",
     title: "Experience",
@@ -203,7 +207,7 @@ const notesData = {
   },
   about: {
     date: "May 29, 2026",
-    title: "About",
+    title: "About me",
     lines: [
       "Hey! I'm Harshit - a 17-year-old from Uttarakhand, India.",
       "",
@@ -217,8 +221,18 @@ const notesData = {
 };
 
 export default function Home() {
-  const [isNotesOpen, setIsNotesOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<NotesTab>("experience");
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<InfoTab>("experience");
+  const [isDesktop, setIsDesktop] = useState(false);
+  const dragConstraintsRef = useRef<HTMLElement | null>(null);
+  const draggedBlogIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <main className="scene-wrap">
@@ -234,10 +248,10 @@ export default function Home() {
         VERSION OF OURSELVES!
       </motion.p>
 
-      <section className="desktop-blog-cloud" aria-label="Blog apps">
+      <section ref={dragConstraintsRef} className="desktop-blog-cloud" aria-label="Blog apps">
         {blogApps.map((blog) => (
           <motion.a
-            key={blog.title}
+            key={blog.id}
             href={blog.href}
             target="_blank"
             rel="noopener noreferrer"
@@ -246,6 +260,24 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: blog.delay }}
             whileHover={{ y: -5, scale: 1.04 }}
+            drag={isDesktop}
+            dragConstraints={dragConstraintsRef}
+            dragElastic={0.08}
+            dragMomentum={false}
+            whileDrag={{ scale: 1.08, cursor: "grabbing", zIndex: 120 }}
+            onDragStart={() => {
+              draggedBlogIdRef.current = blog.id;
+            }}
+            onDragEnd={() => {
+              setTimeout(() => {
+                draggedBlogIdRef.current = null;
+              }, 0);
+            }}
+            onClick={(event) => {
+              if (draggedBlogIdRef.current === blog.id) {
+                event.preventDefault();
+              }
+            }}
           >
             <div className={`blog-app-tile ${blog.imageClass}`}>
               <span>✍️</span>
@@ -263,25 +295,30 @@ export default function Home() {
         transition={{ duration: 0.7, delay: 0.2 }}
       >
         {dockItems.map((item) => {
-          const Icon = item.icon;
-
-          if (item.type === "notes") {
+          if (item.type === "about") {
             return (
               <button
                 key={item.label}
                 type="button"
-                className={`dock-icon-button ${item.toneClass}`}
+                className="dock-icon-button dock-about-button"
                 onClick={() => {
-                  setActiveTab("experience");
-                  setIsNotesOpen(true);
+                  setActiveTab("about");
+                  setIsInfoOpen(true);
                 }}
                 aria-label={item.label}
                 title={item.label}
               >
-                <Icon className="h-6 w-6" />
+                <span className="dock-about-imhs" aria-hidden="true">
+                  <Image src="/dock-imhs.png" alt="" fill sizes="53px" className="dock-about-imhs-image" />
+                </span>
+                <span className="dock-about-avatar" aria-hidden="true">
+                  <Image src="/dock-profile.png" alt="" fill sizes="24px" className="dock-about-avatar-image" />
+                </span>
               </button>
             );
           }
+
+          const Icon = item.icon;
 
           return (
             <a
@@ -300,13 +337,13 @@ export default function Home() {
       </motion.nav>
 
       <AnimatePresence>
-        {isNotesOpen ? (
+        {isInfoOpen ? (
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="notes-overlay"
-            onClick={() => setIsNotesOpen(false)}
+            onClick={() => setIsInfoOpen(false)}
           >
             <motion.article
               initial={{ opacity: 0, y: 18, scale: 0.98 }}
@@ -322,12 +359,12 @@ export default function Home() {
                   <span />
                   <span />
                 </div>
-                <p>Notes</p>
+                <p>About me</p>
                 <button
                   type="button"
                   className="notes-close"
-                  onClick={() => setIsNotesOpen(false)}
-                  aria-label="Close notes"
+                  onClick={() => setIsInfoOpen(false)}
+                  aria-label="Close window"
                 >
                   ×
                 </button>
@@ -337,27 +374,58 @@ export default function Home() {
                 <aside className="notes-sidebar">
                   <button
                     type="button"
+                    onClick={() => setActiveTab("about")}
+                    className={activeTab === "about" ? "note-tab active" : "note-tab"}
+                  >
+                    <strong>About me</strong>
+                    <span>LinkedIn heading + profile</span>
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => setActiveTab("experience")}
                     className={activeTab === "experience" ? "note-tab active" : "note-tab"}
                   >
                     <strong>Experience</strong>
-                    <span>From LinkedIn details</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("about")}
-                    className={activeTab === "about" ? "note-tab active" : "note-tab"}
-                  >
-                    <strong>About</strong>
-                    <span>From LinkedIn details</span>
+                    <span>Current work and writing</span>
                   </button>
                 </aside>
 
                 <section className="notes-content">
-                  <p className="notes-date">{notesData[activeTab].date}</p>
-                  <h2>{notesData[activeTab].title}</h2>
+                  <p className="notes-date">{infoData[activeTab].date}</p>
+                  <h2>{infoData[activeTab].title}</h2>
+
+                  {activeTab === "about" ? (
+                    <article className="about-profile-card">
+                      <div className="about-profile-head">
+                        <div className="about-profile-image-wrap">
+                          <Image
+                            src="/dock-profile.png"
+                            alt="Harshit Singh"
+                            fill
+                            sizes="96px"
+                            className="about-profile-image"
+                          />
+                        </div>
+                        <div className="about-profile-meta">
+                          <p>
+                            <span>NAME</span>
+                            Harshit Singh
+                          </p>
+                          <p>
+                            <span>POSITION</span>
+                            {linkedInHeadline}
+                          </p>
+                          <p>
+                            <span>MAIL</span>
+                            hi@imharshitsingh.in
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  ) : null}
+
                   <div className="notes-lines">
-                    {notesData[activeTab].lines.map((line, index) => (
+                    {infoData[activeTab].lines.map((line, index) => (
                       <p key={`${line}-${index}`}>{line}</p>
                     ))}
                   </div>
