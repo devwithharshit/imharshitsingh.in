@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages": "next build && rm -rf docs && mkdir -p docs && cp -R out/. docs/",
     "start": "next start",
     "lint": "next lint"
   },

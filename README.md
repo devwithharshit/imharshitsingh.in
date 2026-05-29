@@ -60,16 +60,14 @@ Edit the `posts` array to change title/date list.
 
 ## Deploy to GitHub Pages (current setup)
 
-This repo is configured to auto-deploy to GitHub Pages on every push to `main` using:
-
-- `.github/workflows/deploy-pages.yml`
-- `next.config.mjs` with static export
+This repo is configured to export static files and publish from `main /docs`.
 
 In GitHub repository settings:
 
 1. Go to `Settings -> Pages`
-2. Ensure `Source` is `GitHub Actions`
-3. Ensure custom domain is `imharshitsingh.in`
+2. Set `Source` to `Deploy from a branch`
+3. Set branch to `main` and folder to `/docs`
+4. Ensure custom domain is `imharshitsingh.in`
 
 ## Deploy to Vercel (optional)
 
