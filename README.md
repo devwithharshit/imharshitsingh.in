@@ -41,6 +41,7 @@ components/
   CustomCursor.tsx
 public/
   avatar.jpg
+  CNAME
 ```
 
 ## Update Avatar
@@ -57,10 +58,19 @@ Blog items are hardcoded in:
 
 Edit the `posts` array to change title/date list.
 
-## Deploy to Vercel
+## Deploy to GitHub Pages (current setup)
 
-1. Push this repo to GitHub.
-2. Import the repo in Vercel.
-3. Deploy (zero additional configuration needed).
+This repo is configured to auto-deploy to GitHub Pages on every push to `main` using:
 
-A minimal `vercel.json` is included.
+- `.github/workflows/deploy-pages.yml`
+- `next.config.mjs` with static export
+
+In GitHub repository settings:
+
+1. Go to `Settings -> Pages`
+2. Ensure `Source` is `GitHub Actions`
+3. Ensure custom domain is `imharshitsingh.in`
+
+## Deploy to Vercel (optional)
+
+You can still deploy this Next.js app to Vercel directly with default settings.
