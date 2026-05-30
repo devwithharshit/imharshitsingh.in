@@ -13,18 +13,32 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { blogContentById } from "./blogPostsData";
+
 interface BlogApp {
   id: string;
   title: string;
   date: string;
   href: string;
-  summary: string;
   imageClass: string;
   positionClass: string;
   delay: number;
 }
 
-type InfoTab = "experience" | "about";
+type NotesTab = "experience" | "about" | "skills" | "certifications";
+
+interface NoteSection {
+  heading: string;
+  meta?: string;
+  points: string[];
+}
+
+interface CertificationItem {
+  title: string;
+  issuer: string;
+  issued: string;
+  description: string;
+}
 
 interface DockLinkItem {
   type: "link";
@@ -54,7 +68,15 @@ interface DockBlogsItem {
 
 type DockItem = DockAboutItem | DockNotesItem | DockBlogsItem | DockLinkItem;
 
-const linkedInHeadline = "Builder, Writer, AI Enthusiast, Aspiring Entrepreneur.";
+const profileHeadline =
+  "AI Builder 🤖 | Published Author ✍️ | Blending AI, Writing & Storytelling | Building Studio2Beyond | 18-Year-Old Indie Creator | Crafting My Path | Sharing My Journey 🚀";
+
+const profileSummary = [
+  "I am Harshit Singh - teen builder from India, building in public across AI, writing, and creator projects.",
+  "I write, ship, and iterate continuously through Chronicles by Harshit, Studio2Beyond, and my AI apps.",
+  "Let's connect if you care about AI, storytelling, or building meaningful products from scratch."
+];
+
 const blogPostBase = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/post";
 
 const desktopPositions = [
@@ -120,11 +142,162 @@ const blogApps: BlogApp[] = rawBlogs.map((blog, index) => ({
   title: blog.title,
   date: blog.date,
   href: `${blogPostBase}/${blog.slug}`,
-  summary: `Chronicles by Harshit post: ${blog.title}`,
   imageClass: tileClasses[index % tileClasses.length],
   positionClass: desktopPositions[index],
   delay: 0.06 + index * 0.025
 }));
+
+const experienceSections: NoteSection[] = [
+  {
+    heading: "Book Author - Notion Press",
+    meta: "Apr 2026 - Present | India (Remote)",
+    points: [
+      "Published \"Phases Unexpected\" - a reflective book on growing up, uncertainty, friendships, and personal identity.",
+      "Wrote the book from lived teenage experiences to help readers relate with real emotions and self-discovery.",
+      "Managed self-editing, publishing pipeline, and launch execution across NotionPress, Amazon, and Flipkart."
+    ]
+  },
+  {
+    heading: "Founder - Studio2Beyond",
+    meta: "Mar 2026 - Present | India (Remote)",
+    points: [
+      "Building a multi-channel content, AI, and creativity venture combining multiple projects.",
+      "Leading strategic direction and content planning across blog, YouTube, and experimental formats.",
+      "Documenting real-time learning and project shipping journey for audience growth."
+    ]
+  },
+  {
+    heading: "Chronicles by Harshit - Editor in Chief",
+    meta: "Jun 2025 - Present | Haldwani, Uttarakhand",
+    points: [
+      "Launched \"The Chronicles\" quarterly magazine with strong student/professional participation.",
+      "Onboarded and led editorial interns, quality standards, and submission workflows.",
+      "Delivered early editions with high positive reader feedback and consistent publishing rhythm."
+    ]
+  },
+  {
+    heading: "Chronicles by Harshit - Founder & Blogger",
+    meta: "May 2025 - Present | India",
+    points: [
+      "Built and grew personal blog by publishing weekly reflections on life, growth, and learning.",
+      "Architected editorial calendar and lightweight SEO workflow for discoverability.",
+      "Maintained strong consistency and audience retention through authentic storytelling."
+    ]
+  },
+  {
+    heading: "Content Creator - YouTube",
+    meta: "Jan 2025 - Present | India (Remote)",
+    points: [
+      "Built YouTube channel from zero by sharing AI learning, writing insights, and creator journey.",
+      "Produced long-form and short-form videos blending technical explanation with personal reflection.",
+      "Improved average watch-time and built an engaged learner-focused audience."
+    ]
+  },
+  {
+    heading: "Inspiration Public School - Cultural Club Incharge",
+    meta: "Aug 2025 - Feb 2026 | Full-time",
+    points: [
+      "Led 20+ student members to plan and execute 10+ cultural events.",
+      "Coordinated with school leadership and creative teams for stronger event visibility.",
+      "Managed budgets, schedules, and cross-team execution logistics."
+    ]
+  },
+  {
+    heading: "Inspiration Public School - Student Editor",
+    meta: "Mar 2025 - Aug 2025 | Part-time",
+    points: [
+      "Collaborated on redesign and editing of school REFLECTION magazine editions.",
+      "Managed submission review cycles and editorial publishing standards.",
+      "Contributed to stronger readability, storytelling quality, and page presentation."
+    ]
+  }
+];
+
+const aboutParagraphs = [
+  "I'm Harshit Singh- an 18-year-old AI Enthusiast, Published Author, and Indie AI Content Creator on a mission to make complex AI ideas accessible through storytelling. I believe the future belongs to creators who can bridge technology and human connection, and that's exactly what I'm building.",
+  "I've published \"Phases Unexpected\" with Notion Press, launched Chronicles by Harshit (blogs & magazine), and built a YouTube channel where I share AI learnings, writing insights, and entrepreneurial explorations.",
+  "My superpowers: I write to reflect, I code to explore, and I create to connect. Whether I'm diving into AI concepts, crafting thoughtful blog posts, or editing Chronicles Unfurled magazine, I approach every project with authenticity and curiosity.",
+  "I'm not just exploring- I'm building in public. Right now, that means growing Studio2Beyond, shipping consistent content, and turning my AI journey into practical insights others can learn from."
+];
+
+const skillsList = [
+  "Vibe Coding",
+  "Anthropic Claude",
+  "Critical Thinking",
+  "Editorial Project Management",
+  "Decision-Making",
+  "Nonprofit Volunteering",
+  "Event Management",
+  "Proofreading",
+  "Organization Skills",
+  "Public Speaking",
+  "Artificial Intelligence (AI)",
+  "Project Management",
+  "Club Management",
+  "Writing",
+  "Content Creation",
+  "Editorial",
+  "Blogging",
+  "Team Leadership",
+  "Matplotlib",
+  "Pandas (Software)",
+  "NumPy",
+  "Python (Programming Language)",
+  "MySQL",
+  "Entrepreneurship",
+  "Canva",
+  "Presentation Skills",
+  "Presentation Development",
+  "Microsoft Office"
+];
+
+const certificationItems: CertificationItem[] = [
+  {
+    title: "Notion Press - Certificate of Publishing (Phases Unexpected)",
+    issuer: "Notion Press",
+    issued: "Issued Apr 20, 2026",
+    description:
+      "Official publishing recognition for successfully publishing Phases Unexpected as a published author."
+  },
+  {
+    title: "IBM SkillsBuild - What is Cybersecurity?",
+    issuer: "IBM SkillsBuild",
+    issued: "Issued Mar 2026",
+    description:
+      "Course completion certificate in cybersecurity fundamentals (Credential: ILB-JYWPQZZDDEVJKGJQ)."
+  },
+  {
+    title: "DISMUN 4.0 2024 | Participation - UNGA (Canada)",
+    issuer: "Dikshant International School",
+    issued: "Issued Aug 2024",
+    description:
+      "Recognized participation in DISMUN Chapter 4 as UNGA committee delegate with formal certification."
+  },
+  {
+    title: "First World Community Delhi Chapter Launch",
+    issuer: "First World Community",
+    issued: "Issued Mar 2025",
+    description: "Participation and volunteer certificate for Delhi chapter launch event."
+  },
+  {
+    title: "Late Shri NC Balutia Entrepreneurship Contest - Third Position",
+    issuer: "TWIN WIN",
+    issued: "Issued Jan 2023",
+    description: "Awarded third position in school-level entrepreneurship competition."
+  },
+  {
+    title: "Late Shri NC Balutia Entrepreneurship Contest - Second Position",
+    issuer: "TWIN WIN",
+    issued: "Issued Jan 2025",
+    description: "Awarded second position with improved entrepreneurial pitch and execution."
+  },
+  {
+    title: "IBM SkillsBuild - Introduction to Artificial Intelligence",
+    issuer: "IBM SkillsBuild",
+    issued: "Issued Aug 2024",
+    description: "AI fundamentals completion certificate (Course code: MDLPT-222)."
+  }
+];
 
 const bookLinks = [
   {
@@ -144,7 +317,7 @@ const bookLinks = [
 const dockItems: DockItem[] = [
   {
     type: "about",
-    label: "About Me"
+    label: "Profile"
   },
   {
     type: "notes",
@@ -202,7 +375,7 @@ const dockItems: DockItem[] = [
   },
   {
     type: "blogs",
-    label: "Blogs",
+    label: "Blogs"
   },
   {
     type: "link",
@@ -214,48 +387,28 @@ const dockItems: DockItem[] = [
   }
 ];
 
-const infoData = {
-  experience: {
-    date: "May 29, 2026",
-    title: "Experience",
-    lines: [
-      "Founder, ReProfiled (2026 - Present)",
-      "Building an AI-powered resume and professional profile optimizer.",
-      "",
-      "Founder, ReachOutBotAI (2026 - Present)",
-      "Building AI outreach automation to help people connect and network faster.",
-      "",
-      "Author, Phases: Unexpected (2026)",
-      "Published and distributed on NotionPress, Amazon, and Flipkart.",
-      "",
-      "Writer, Chronicles by Harshit",
-      "Publishing weekly reflections on life, growth, and mindset."
-    ]
-  },
-  about: {
-    date: "May 29, 2026",
-    title: "About me",
-    lines: [
-      "Hey! I'm Harshit - a 17-year-old from Uttarakhand, India.",
-      "",
-      "I'm passionate about AI, building products that matter, and writing honestly about life.",
-      "",
-      "I build AI apps, write weekly blogs, and explore the intersection of tech and creativity.",
-      "",
-      "My goal is to craft my own path and build things that help people."
-    ]
-  }
-};
+function WindowTrafficLights({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="window-dots" role="group" aria-label="Window controls">
+      <button type="button" className="window-dot dot-red" onClick={onClose} aria-label="Close window" />
+      <button type="button" className="window-dot dot-yellow" onClick={onClose} aria-label="Close window" />
+      <button type="button" className="window-dot dot-green" onClick={onClose} aria-label="Close window" />
+    </div>
+  );
+}
 
 export default function Home() {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isBlogWindowOpen, setIsBlogWindowOpen] = useState(false);
   const [activeBlogId, setActiveBlogId] = useState(blogApps[0]?.id ?? "");
-  const [activeTab, setActiveTab] = useState<InfoTab>("experience");
+  const [activeTab, setActiveTab] = useState<NotesTab>("experience");
   const [isDesktop, setIsDesktop] = useState(false);
   const dragConstraintsRef = useRef<HTMLElement | null>(null);
   const draggedBlogIdRef = useRef<string | null>(null);
+
   const activeBlog = blogApps.find((blog) => blog.id === activeBlogId) ?? blogApps[0];
+  const activeBlogContent = activeBlog ? blogContentById[activeBlog.id] : undefined;
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -264,9 +417,47 @@ export default function Home() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const openProfile = () => {
+    setIsProfileOpen(true);
+    setIsInfoOpen(false);
+    setIsBlogWindowOpen(false);
+  };
+
+  const openNotes = (tab: NotesTab = "experience") => {
+    setActiveTab(tab);
+    setIsInfoOpen(true);
+    setIsProfileOpen(false);
+    setIsBlogWindowOpen(false);
+  };
+
+  const openBlogs = (blogId?: string) => {
+    if (blogId) setActiveBlogId(blogId);
+    setIsBlogWindowOpen(true);
+    setIsProfileOpen(false);
+    setIsInfoOpen(false);
+  };
+
+  const blogParagraphs =
+    activeBlogContent?.paragraphs?.length && activeBlogContent.paragraphs.length > 0
+      ? activeBlogContent.paragraphs
+      : ["Blog content loading...", "Please open source link for complete version."];
+
   return (
     <main className="scene-wrap">
       <div className="quote-spotlight" />
+
+      <motion.div
+        className="quote-portrait-wrap"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <div className="quote-portrait-ring" />
+        <div className="quote-portrait-image-wrap">
+          <Image src="/avatar-cutout.png" alt="Harshit Singh" fill sizes="140px" className="quote-portrait-image" />
+        </div>
+      </motion.div>
+
       <div className="quote-center-wrap">
         <motion.p
           className="quote-center"
@@ -305,8 +496,7 @@ export default function Home() {
             }}
             onClick={() => {
               if (draggedBlogIdRef.current === blog.id) return;
-              setActiveBlogId(blog.id);
-              setIsBlogWindowOpen(true);
+              openBlogs(blog.id);
             }}
           >
             <div className={`blog-app-tile ${blog.imageClass}`}>
@@ -332,10 +522,7 @@ export default function Home() {
                   key={item.label}
                   type="button"
                   className="dock-icon-button dock-about-button"
-                  onClick={() => {
-                    setActiveTab("about");
-                    setIsInfoOpen(true);
-                  }}
+                  onClick={openProfile}
                   aria-label={item.label}
                   title={item.label}
                 >
@@ -355,10 +542,7 @@ export default function Home() {
                   key={item.label}
                   type="button"
                   className="dock-icon-button notes-dock-button"
-                  onClick={() => {
-                    setActiveTab("about");
-                    setIsInfoOpen(true);
-                  }}
+                  onClick={() => openNotes("experience")}
                   aria-label={item.label}
                   title={item.label}
                 >
@@ -380,10 +564,7 @@ export default function Home() {
                   key={item.label}
                   type="button"
                   className="dock-icon-button tone-blogs"
-                  onClick={() => {
-                    setActiveBlogId(blogApps[0]?.id ?? "");
-                    setIsBlogWindowOpen(true);
-                  }}
+                  onClick={() => openBlogs(blogApps[0]?.id ?? "")}
                   aria-label={item.label}
                   title={item.label}
                 >
@@ -424,6 +605,62 @@ export default function Home() {
       </div>
 
       <AnimatePresence>
+        {isProfileOpen ? (
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="notes-overlay"
+            onClick={() => setIsProfileOpen(false)}
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 14, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="profile-window"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <header className="notes-window-top">
+                <WindowTrafficLights onClose={() => setIsProfileOpen(false)} />
+                <p>Profile</p>
+                <span className="window-spacer" />
+              </header>
+
+              <section className="profile-window-body">
+                <div className="profile-identity">
+                  <div className="profile-image-wrap">
+                    <Image src="/dock-profile.png" alt="Harshit Singh" fill sizes="96px" className="profile-image" />
+                  </div>
+                  <div>
+                    <h2>Harshit Singh</h2>
+                    <p className="profile-headline-text">{profileHeadline}</p>
+                    <p className="profile-contact">✉️ hi@imharshitsingh.in</p>
+                    <p className="profile-contact">🌐 imharshitsingh.in</p>
+                  </div>
+                </div>
+
+                <div className="notes-lines profile-lines">
+                  {profileSummary.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+
+                <div className="about-book-links">
+                  <p>Phases Unexpected - Buy links</p>
+                  <div>
+                    {bookLinks.map((book) => (
+                      <a key={book.label} href={book.href} target="_blank" rel="noopener noreferrer">
+                        {book.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </motion.article>
+          </motion.section>
+        ) : null}
+
         {isInfoOpen ? (
           <motion.section
             initial={{ opacity: 0 }}
@@ -441,92 +678,114 @@ export default function Home() {
               onClick={(event) => event.stopPropagation()}
             >
               <header className="notes-window-top">
-                <div className="window-dots" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <p>About me</p>
-                <button
-                  type="button"
-                  className="notes-close"
-                  onClick={() => setIsInfoOpen(false)}
-                  aria-label="Close window"
-                >
-                  ×
-                </button>
+                <WindowTrafficLights onClose={() => setIsInfoOpen(false)} />
+                <p>Notes</p>
+                <span className="window-spacer" />
               </header>
 
               <div className="notes-layout">
                 <aside className="notes-sidebar">
                   <button
                     type="button"
-                    onClick={() => setActiveTab("about")}
-                    className={activeTab === "about" ? "note-tab active" : "note-tab"}
-                  >
-                    <strong>About me</strong>
-                    <span>LinkedIn heading + profile</span>
-                  </button>
-                  <button
-                    type="button"
                     onClick={() => setActiveTab("experience")}
                     className={activeTab === "experience" ? "note-tab active" : "note-tab"}
                   >
                     <strong>Experience</strong>
-                    <span>Current work and writing</span>
+                    <span>LinkedIn work timeline</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("about")}
+                    className={activeTab === "about" ? "note-tab active" : "note-tab"}
+                  >
+                    <strong>About</strong>
+                    <span>Bio and current focus</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("skills")}
+                    className={activeTab === "skills" ? "note-tab active" : "note-tab"}
+                  >
+                    <strong>Skills</strong>
+                    <span>Core skills list</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("certifications")}
+                    className={activeTab === "certifications" ? "note-tab active" : "note-tab"}
+                  >
+                    <strong>Certifications</strong>
+                    <span>Licenses and badges</span>
                   </button>
                 </aside>
 
                 <section className="notes-content">
-                  <p className="notes-date">{infoData[activeTab].date}</p>
-                  <h2>{infoData[activeTab].title}</h2>
+                  <p className="notes-date">Updated May 30, 2026</p>
+                  <h2>
+                    {activeTab === "experience" && "Experience"}
+                    {activeTab === "about" && "About"}
+                    {activeTab === "skills" && "Skills"}
+                    {activeTab === "certifications" && "Licenses & Certifications"}
+                  </h2>
 
-                  {activeTab === "about" ? (
-                    <article className="about-profile-card">
-                      <div className="about-profile-head">
-                        <div className="about-profile-image-wrap">
-                          <Image
-                            src="/dock-profile.png"
-                            alt="Harshit Singh"
-                            fill
-                            sizes="96px"
-                            className="about-profile-image"
-                          />
-                        </div>
-                        <div className="about-profile-meta">
-                          <p>
-                            <span>NAME</span>
-                            Harshit Singh
-                          </p>
-                          <p>
-                            <span>POSITION</span>
-                            {linkedInHeadline}
-                          </p>
-                          <p>
-                            <span>MAIL</span>
-                            hi@imharshitsingh.in
-                          </p>
-                        </div>
-                      </div>
-                    </article>
+                  {activeTab === "experience" ? (
+                    <div className="notes-stack">
+                      {experienceSections.map((section) => (
+                        <article key={section.heading} className="notes-block">
+                          <h3>{section.heading}</h3>
+                          {section.meta ? <p className="notes-meta">{section.meta}</p> : null}
+                          <ul>
+                            {section.points.map((point) => (
+                              <li key={point}>{point}</li>
+                            ))}
+                          </ul>
+                        </article>
+                      ))}
+                    </div>
                   ) : null}
 
-                  <div className="notes-lines">
-                    {infoData[activeTab].lines.map((line, index) => (
-                      <p key={`${line}-${index}`}>{line}</p>
-                    ))}
-                  </div>
-
                   {activeTab === "about" ? (
-                    <div className="about-book-links">
-                      <p>Buy my book: Phases: Unexpected</p>
-                      <div>
-                        {bookLinks.map((book) => (
-                          <a key={book.label} href={book.href} target="_blank" rel="noopener noreferrer">
-                            {book.label}
-                          </a>
+                    <>
+                      <div className="notes-lines">
+                        {aboutParagraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
                         ))}
                       </div>
+
+                      <div className="about-book-links">
+                        <p>Phases Unexpected - Buy links</p>
+                        <div>
+                          {bookLinks.map((book) => (
+                            <a key={book.label} href={book.href} target="_blank" rel="noopener noreferrer">
+                              {book.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+
+                  {activeTab === "skills" ? (
+                    <div className="skills-grid">
+                      {skillsList.map((skill) => (
+                        <span key={skill} className="skill-pill">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  {activeTab === "certifications" ? (
+                    <div className="notes-stack">
+                      {certificationItems.map((certificate) => (
+                        <article key={`${certificate.title}-${certificate.issued}`} className="notes-block cert-block">
+                          <h3>{certificate.title}</h3>
+                          <p className="notes-meta">
+                            {certificate.issuer} · {certificate.issued}
+                          </p>
+                          <p>{certificate.description}</p>
+                        </article>
+                      ))}
                     </div>
                   ) : null}
                 </section>
@@ -552,20 +811,9 @@ export default function Home() {
               onClick={(event) => event.stopPropagation()}
             >
               <header className="notes-window-top">
-                <div className="window-dots" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
+                <WindowTrafficLights onClose={() => setIsBlogWindowOpen(false)} />
                 <p>Blogs</p>
-                <button
-                  type="button"
-                  className="notes-close"
-                  onClick={() => setIsBlogWindowOpen(false)}
-                  aria-label="Close blog window"
-                >
-                  ×
-                </button>
+                <span className="window-spacer" />
               </header>
 
               <div className="blog-window-layout">
@@ -586,13 +834,12 @@ export default function Home() {
                 <section className="blog-window-content">
                   <p className="notes-date">{activeBlog.date}</p>
                   <h2>{activeBlog.title}</h2>
-                  <p className="blog-window-summary">{activeBlog.summary}</p>
-                  <p className="blog-window-sub">
-                    Same-page app style open ho raha hai. Full post read karna ho to niche button use karo.
-                  </p>
-                  <a href={activeBlog.href} target="_blank" rel="noopener noreferrer" className="blog-window-read">
-                    Read Full Post ↗
-                  </a>
+
+                  <div className="blog-window-paragraphs">
+                    {blogParagraphs.map((paragraph, index) => (
+                      <p key={`${activeBlog.id}-${index}`}>{paragraph}</p>
+                    ))}
+                  </div>
                 </section>
               </div>
             </motion.article>
