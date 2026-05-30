@@ -69,7 +69,7 @@ interface DockBlogsItem {
 type DockItem = DockAboutItem | DockNotesItem | DockBlogsItem | DockLinkItem;
 
 const profileHeadline =
-  "AI Builder 🤖 | Published Author ✍️ | Blending AI, Writing & Storytelling | Building Studio2Beyond | 18-Year-Old Indie Creator | Crafting My Path | Sharing My Journey 🚀";
+  "AI Builder 🤖 | Published Author ✍🏻 | Blending AI, Writing & Storytelling | Building Studio2Beyond | 18-Year-Old Indie Creator | Crafting My Path | Sharing My Journey 🚀";
 
 const profileSummary = [
   "I am Harshit Singh - teen builder from India, building in public across AI, writing, and creator projects.",
@@ -313,6 +313,8 @@ const bookLinks = [
     href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true"
   }
 ];
+
+const bookCoverSrc = "/phases-unexpected-cover.png";
 
 const dockItems: DockItem[] = [
   {
@@ -648,6 +650,15 @@ export default function Home() {
 
                 <div className="about-book-links">
                   <p>Phases Unexpected - Buy links</p>
+                  <div className="about-book-cover-wrap">
+                    <div className="about-book-cover">
+                      <Image src={bookCoverSrc} alt="Phases Unexpected book cover" fill sizes="150px" className="book-cover-image" />
+                    </div>
+                    <div className="about-book-cover-meta">
+                      <strong>Phases Unexpected</strong>
+                      <span>Stories Never Planned For</span>
+                    </div>
+                  </div>
                   <div>
                     {bookLinks.map((book) => (
                       <a key={book.label} href={book.href} target="_blank" rel="noopener noreferrer">
@@ -746,6 +757,26 @@ export default function Home() {
 
                   {activeTab === "about" ? (
                     <>
+                      <div className="about-profile-card">
+                        <div className="about-profile-photo">
+                          <Image src="/dock-profile.png" alt="Harshit Singh profile" fill sizes="94px" className="about-profile-photo-image" />
+                        </div>
+                        <div className="about-profile-grid">
+                          <div>
+                            <span>NAME</span>
+                            <strong>Harshit Singh</strong>
+                          </div>
+                          <div>
+                            <span>POSITION</span>
+                            <strong>{profileHeadline}</strong>
+                          </div>
+                          <div>
+                            <span>MAIL</span>
+                            <strong>hi@imharshitsingh.in</strong>
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="notes-lines">
                         {aboutParagraphs.map((paragraph) => (
                           <p key={paragraph}>{paragraph}</p>
@@ -754,6 +785,15 @@ export default function Home() {
 
                       <div className="about-book-links">
                         <p>Phases Unexpected - Buy links</p>
+                        <div className="about-book-cover-wrap">
+                          <div className="about-book-cover">
+                            <Image src={bookCoverSrc} alt="Phases Unexpected book cover" fill sizes="150px" className="book-cover-image" />
+                          </div>
+                          <div className="about-book-cover-meta">
+                            <strong>Phases Unexpected</strong>
+                            <span>Stories Never Planned For</span>
+                          </div>
+                        </div>
                         <div>
                           {bookLinks.map((book) => (
                             <a key={book.label} href={book.href} target="_blank" rel="noopener noreferrer">

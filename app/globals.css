@@ -716,6 +716,46 @@ a {
   gap: 0.5rem;
 }
 
+.about-book-cover-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.about-book-cover {
+  position: relative;
+  width: 96px;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.24);
+  background: #d9d9d9;
+}
+
+.book-cover-image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-book-cover-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+}
+
+.about-book-cover-meta strong {
+  font-size: 0.95rem;
+  color: rgba(20, 20, 20, 0.92);
+}
+
+.about-book-cover-meta span {
+  font-size: 0.83rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
 .about-book-links a {
   display: inline-flex;
   align-items: center;
@@ -733,6 +773,64 @@ a {
 
 .about-book-links a:hover {
   filter: brightness(1.04);
+}
+
+.about-profile-card {
+  margin-top: 0.45rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+  padding: 0.72rem;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 0.72rem;
+}
+
+.about-profile-photo {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #fff;
+}
+
+.about-profile-photo-image {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.about-profile-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-profile-grid > div {
+  display: grid;
+  grid-template-columns: 98px minmax(0, 1fr);
+  align-items: flex-start;
+  gap: 0.66rem;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.about-profile-grid > div:last-child {
+  border-bottom: 0;
+}
+
+.about-profile-grid span {
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.56);
+}
+
+.about-profile-grid strong {
+  font-size: 0.98rem;
+  line-height: 1.35;
+  color: rgba(20, 20, 20, 0.95);
+  font-weight: 600;
 }
 
 .blog-window {
@@ -1061,6 +1159,10 @@ a {
   }
 
   .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-profile-card {
     grid-template-columns: 1fr;
   }
 
