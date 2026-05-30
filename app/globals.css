@@ -82,14 +82,18 @@ a {
   pointer-events: none;
 }
 
-.quote-center {
+.quote-center-wrap {
   position: fixed;
   left: 50%;
   top: 50%;
-  z-index: 1;
   transform: translate(-50%, -50%);
-  margin: 0;
+  z-index: 1;
   width: min(95vw, 1200px);
+  pointer-events: none;
+}
+
+.quote-center {
+  margin: 0;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -100,7 +104,6 @@ a {
   text-shadow:
     0 0 32px rgba(255, 255, 255, 0.1),
     0 14px 42px rgba(0, 0, 0, 0.8);
-  pointer-events: none;
 }
 
 .desktop-blog-cloud {
@@ -181,12 +184,15 @@ a {
   color: rgba(233, 233, 233, 0.74);
 }
 
-.makos-dock-bar {
+.dock-wrap {
   position: fixed;
   left: 50%;
   bottom: 1.05rem;
   transform: translateX(-50%);
   z-index: 50;
+}
+
+.makos-dock-bar {
   width: max-content;
   max-width: calc(100vw - 1rem);
   display: flex;
@@ -585,9 +591,11 @@ a {
 }
 
 @media (max-width: 900px) {
-  .quote-center {
+  .quote-center-wrap {
     top: 22%;
-    transform: translate(-50%, -50%);
+  }
+
+  .quote-center {
     letter-spacing: 0.05em;
   }
 

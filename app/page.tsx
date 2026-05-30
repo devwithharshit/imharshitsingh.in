@@ -237,16 +237,18 @@ export default function Home() {
   return (
     <main className="scene-wrap">
       <div className="quote-spotlight" />
-      <motion.p
-        className="quote-center"
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        LET&apos;S JUST BE THE SIMPLEST, BEST, & KINDEST
-        <br />
-        VERSION OF OURSELVES!
-      </motion.p>
+      <div className="quote-center-wrap">
+        <motion.p
+          className="quote-center"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          LET&apos;S JUST BE THE SIMPLEST, BEST, & KINDEST
+          <br />
+          VERSION OF OURSELVES!
+        </motion.p>
+      </div>
 
       <section ref={dragConstraintsRef} className="desktop-blog-cloud" aria-label="Blog apps">
         {blogApps.map((blog) => (
@@ -288,53 +290,55 @@ export default function Home() {
         ))}
       </section>
 
-      <motion.nav
-        className="makos-dock-bar"
-        initial={{ opacity: 0, y: 26 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-      >
-        {dockItems.map((item) => {
-          if (item.type === "about") {
+      <div className="dock-wrap">
+        <motion.nav
+          className="makos-dock-bar"
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          {dockItems.map((item) => {
+            if (item.type === "about") {
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="dock-icon-button dock-about-button"
+                  onClick={() => {
+                    setActiveTab("about");
+                    setIsInfoOpen(true);
+                  }}
+                  aria-label={item.label}
+                  title={item.label}
+                >
+                  <span className="dock-about-imhs" aria-hidden="true">
+                    <Image src="/dock-imhs.png" alt="" fill sizes="53px" className="dock-about-imhs-image" />
+                  </span>
+                  <span className="dock-about-avatar" aria-hidden="true">
+                    <Image src="/dock-profile.png" alt="" fill sizes="24px" className="dock-about-avatar-image" />
+                  </span>
+                </button>
+              );
+            }
+
+            const Icon = item.icon;
+
             return (
-              <button
+              <a
                 key={item.label}
-                type="button"
-                className="dock-icon-button dock-about-button"
-                onClick={() => {
-                  setActiveTab("about");
-                  setIsInfoOpen(true);
-                }}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`dock-icon-button ${item.toneClass}`}
                 aria-label={item.label}
                 title={item.label}
               >
-                <span className="dock-about-imhs" aria-hidden="true">
-                  <Image src="/dock-imhs.png" alt="" fill sizes="53px" className="dock-about-imhs-image" />
-                </span>
-                <span className="dock-about-avatar" aria-hidden="true">
-                  <Image src="/dock-profile.png" alt="" fill sizes="24px" className="dock-about-avatar-image" />
-                </span>
-              </button>
+                <Icon className="h-6 w-6" />
+              </a>
             );
-          }
-
-          const Icon = item.icon;
-
-          return (
-            <a
-              key={item.label}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`dock-icon-button ${item.toneClass}`}
-              aria-label={item.label}
-              title={item.label}
-            >
-              <Icon className="h-6 w-6" />
-            </a>
-          );
-        })}
-      </motion.nav>
+          })}
+        </motion.nav>
+      </div>
 
       <AnimatePresence>
         {isInfoOpen ? (
