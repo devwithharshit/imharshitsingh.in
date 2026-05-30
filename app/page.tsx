@@ -4,13 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
   BookOpenText,
-  Bot,
   Github,
   Instagram,
   Linkedin,
   Mail,
   NotebookText,
-  Rocket,
   X,
   type LucideIcon
 } from "lucide-react";
@@ -32,8 +30,11 @@ interface DockLinkItem {
   type: "link";
   label: string;
   href: string;
-  icon: LucideIcon;
   toneClass: string;
+  iconType: "lucide" | "image";
+  icon?: LucideIcon;
+  iconSrc?: string;
+  iconAlt?: string;
 }
 
 interface DockAboutItem {
@@ -41,67 +42,84 @@ interface DockAboutItem {
   label: string;
 }
 
-type DockItem = DockAboutItem | DockLinkItem;
+interface DockNotesItem {
+  type: "notes";
+  label: string;
+}
+
+type DockItem = DockAboutItem | DockNotesItem | DockLinkItem;
 
 const linkedInHeadline = "Builder, Writer, AI Enthusiast, Aspiring Entrepreneur.";
 const blogUrl = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/blog";
+const blogPostBase = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/post";
 
-const blogApps: BlogApp[] = [
+const desktopPositions = [
+  "pos-a",
+  "pos-b",
+  "pos-c",
+  "pos-d",
+  "pos-e",
+  "pos-f",
+  "pos-g",
+  "pos-h",
+  "pos-i",
+  "pos-j",
+  "pos-k",
+  "pos-l",
+  "pos-m",
+  "pos-n",
+  "pos-o",
+  "pos-p",
+  "pos-q",
+  "pos-r",
+  "pos-s",
+  "pos-t"
+] as const;
+
+const tileClasses = ["tile-a", "tile-b", "tile-c", "tile-d", "tile-e", "tile-f", "tile-g", "tile-h"] as const;
+
+const rawBlogs = [
+  { id: "a-new-beginning", title: "A new Beginning...", date: "Jun 1, 2025", slug: "a-new-beginning" },
+  { id: "i-guess-date", title: "I guess, its the date!", date: "May 27, 2025", slug: "i-guess-its-the-date" },
+  { id: "really-very-late", title: "I am really very late....", date: "Jun 10, 2025", slug: "i-am-really-very-late" },
+  { id: "mood-off", title: "Was it really a Mood Off?", date: "Jun 8, 2025", slug: "was-it-really-a-mood-off" },
+  { id: "just-do-it", title: "Just do it...", date: "Jun 3, 2025", slug: "just-do-it" },
+  { id: "keep-going", title: "Keep It Going Like It Does...", date: "Jun 17, 2025", slug: "keep-it-going-like-it-does" },
   {
-    id: "wave",
-    title: "Wave of change...",
-    date: "Apr 24, 2026",
-    href: blogUrl,
-    imageClass: "tile-a",
-    positionClass: "pos-a",
-    delay: 0.08
+    id: "reading-writing",
+    title: "Reading & Writing isn't always Studying...!",
+    date: "Jun 24, 2025",
+    slug: "reading-writing-isn-t-always-studying"
   },
+  { id: "does-matter", title: "Does it really matter...?", date: "Jun 22, 2025", slug: "does-it-really-matter" },
+  { id: "breaks", title: "Breaks...", date: "Aug 3, 2025", slug: "breaks" },
+  { id: "stressful", title: "Its stressful...", date: "Jul 20, 2025", slug: "its-stressful" },
+  { id: "be-calm", title: "Be Calm...", date: "Jul 13, 2025", slug: "be-calm" },
+  { id: "is-it-done", title: "Is it done?", date: "Jul 6, 2025", slug: "is-it-done" },
   {
-    id: "waste",
-    title: "Waste of time...",
-    date: "Apr 17, 2026",
-    href: blogUrl,
-    imageClass: "tile-b",
-    positionClass: "pos-b",
-    delay: 0.14
+    id: "heyy-july",
+    title: "Heyy... Welcome to July! Are you ready?",
+    date: "Jul 1, 2025",
+    slug: "heyy-welcome-to-july-are-you-ready"
   },
-  {
-    id: "get-up",
-    title: "Get up buddy!",
-    date: "Apr 10, 2026",
-    href: blogUrl,
-    imageClass: "tile-c",
-    positionClass: "pos-c",
-    delay: 0.2
-  },
-  {
-    id: "rat-race",
-    title: "The Rat Race...",
-    date: "Apr 3, 2026",
-    href: blogUrl,
-    imageClass: "tile-d",
-    positionClass: "pos-d",
-    delay: 0.26
-  },
-  {
-    id: "rain",
-    title: "Rain rain go away...",
-    date: "Mar 20, 2026",
-    href: blogUrl,
-    imageClass: "tile-e",
-    positionClass: "pos-e",
-    delay: 0.32
-  },
-  {
-    id: "break",
-    title: "After a break...",
-    date: "Mar 13, 2026",
-    href: blogUrl,
-    imageClass: "tile-f",
-    positionClass: "pos-f",
-    delay: 0.38
-  }
-];
+  { id: "lets-express", title: "Let's express it...", date: "Aug 10, 2025", slug: "let-s-express-it" },
+  { id: "wave", title: "Wave of change...", date: "Apr 24, 2025", slug: "wave-of-change" },
+  { id: "waste", title: "Waste of time...", date: "Apr 17, 2025", slug: "waste-of-time" },
+  { id: "get-up", title: "Get up buddy!", date: "Apr 10, 2025", slug: "get-up-buddy" },
+  { id: "rat-race", title: "The Rat Race...", date: "Apr 3, 2025", slug: "the-rat-race" },
+  { id: "rain", title: "Rain rain go away...", date: "Mar 20, 2025", slug: "rain-rain-go-away" },
+  { id: "after-break", title: "After a break...", date: "Mar 13, 2025", slug: "after-a-break" }
+] as const;
+
+const blogApps: BlogApp[] = rawBlogs.map((blog, index) => ({
+  id: blog.id,
+  title: blog.title,
+  date: blog.date,
+  href: `${blogPostBase}/${blog.slug}`,
+  imageClass: tileClasses[index % tileClasses.length],
+  positionClass: desktopPositions[index],
+  delay: 0.06 + index * 0.025
+}));
 
 const dockItems: DockItem[] = [
   {
@@ -109,9 +127,14 @@ const dockItems: DockItem[] = [
     label: "About Me"
   },
   {
+    type: "notes",
+    label: "Notes"
+  },
+  {
     type: "link",
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/imharshitsinghin/",
+    iconType: "lucide",
     icon: Linkedin,
     toneClass: "tone-linkedin"
   },
@@ -119,6 +142,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "X",
     href: "https://x.com/HarshitSingh_in",
+    iconType: "lucide",
     icon: X,
     toneClass: "tone-x"
   },
@@ -126,6 +150,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "GitHub",
     href: "https://github.com/devwithharshit",
+    iconType: "lucide",
     icon: Github,
     toneClass: "tone-github"
   },
@@ -133,6 +158,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "Instagram",
     href: "https://instagram.com/imsinghharshit",
+    iconType: "lucide",
     icon: Instagram,
     toneClass: "tone-instagram"
   },
@@ -140,20 +166,25 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "ReProfiled",
     href: "https://reprofiled.vercel.app/",
-    icon: Rocket,
-    toneClass: "tone-reprofiled"
+    iconType: "image",
+    iconSrc: "/icons/reprofiled.svg",
+    iconAlt: "ReProfiled",
+    toneClass: "tone-favicon"
   },
   {
     type: "link",
     label: "ReachOutBotAI",
     href: "https://reachoutbotai.vercel.app/",
-    icon: Bot,
-    toneClass: "tone-reachout"
+    iconType: "image",
+    iconSrc: "/icons/reachoutbotai.ico",
+    iconAlt: "ReachOutBotAI",
+    toneClass: "tone-favicon"
   },
   {
     type: "link",
     label: "Book (NotionPress)",
     href: "https://notionpress.com/in/read/phases-unexpected",
+    iconType: "lucide",
     icon: BookOpenText,
     toneClass: "tone-book"
   },
@@ -161,6 +192,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "Book (Amazon)",
     href: "https://amzn.to/4u6wdH8",
+    iconType: "lucide",
     icon: BookOpenText,
     toneClass: "tone-book"
   },
@@ -168,6 +200,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "Book (Flipkart)",
     href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true",
+    iconType: "lucide",
     icon: BookOpenText,
     toneClass: "tone-book"
   },
@@ -175,6 +208,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "Blogs",
     href: blogUrl,
+    iconType: "lucide",
     icon: NotebookText,
     toneClass: "tone-blogs"
   },
@@ -182,6 +216,7 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "Email",
     href: "mailto:hi@imharshitsingh.in",
+    iconType: "lucide",
     icon: Mail,
     toneClass: "tone-mail"
   }
@@ -321,6 +356,31 @@ export default function Home() {
               );
             }
 
+            if (item.type === "notes") {
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="dock-icon-button notes-dock-button"
+                  onClick={() => {
+                    setActiveTab("about");
+                    setIsInfoOpen(true);
+                  }}
+                  aria-label={item.label}
+                  title={item.label}
+                >
+                  <span className="notes-app-icon" aria-hidden="true">
+                    <span className="notes-app-top" />
+                    <span className="notes-app-body">
+                      <span />
+                      <span />
+                      <span />
+                    </span>
+                  </span>
+                </button>
+              );
+            }
+
             const Icon = item.icon;
 
             return (
@@ -333,7 +393,19 @@ export default function Home() {
                 aria-label={item.label}
                 title={item.label}
               >
-                <Icon className="h-6 w-6" />
+                {item.iconType === "image" && item.iconSrc ? (
+                  <span className="dock-image-icon-wrap" aria-hidden="true">
+                    <Image
+                      src={item.iconSrc}
+                      alt={item.iconAlt ?? item.label}
+                      fill
+                      sizes="40px"
+                      className="dock-image-icon"
+                    />
+                  </span>
+                ) : Icon ? (
+                  <Icon className="h-7 w-7" />
+                ) : null}
               </a>
             );
           })}
