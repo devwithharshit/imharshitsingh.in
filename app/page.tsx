@@ -3,7 +3,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
-  BookOpenText,
   Github,
   Instagram,
   Linkedin,
@@ -19,6 +18,7 @@ interface BlogApp {
   title: string;
   date: string;
   href: string;
+  summary: string;
   imageClass: string;
   positionClass: string;
   delay: number;
@@ -47,10 +47,14 @@ interface DockNotesItem {
   label: string;
 }
 
-type DockItem = DockAboutItem | DockNotesItem | DockLinkItem;
+interface DockBlogsItem {
+  type: "blogs";
+  label: string;
+}
+
+type DockItem = DockAboutItem | DockNotesItem | DockBlogsItem | DockLinkItem;
 
 const linkedInHeadline = "Builder, Writer, AI Enthusiast, Aspiring Entrepreneur.";
-const blogUrl = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/blog";
 const blogPostBase = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/post";
 
 const desktopPositions = [
@@ -116,10 +120,26 @@ const blogApps: BlogApp[] = rawBlogs.map((blog, index) => ({
   title: blog.title,
   date: blog.date,
   href: `${blogPostBase}/${blog.slug}`,
+  summary: `Chronicles by Harshit post: ${blog.title}`,
   imageClass: tileClasses[index % tileClasses.length],
   positionClass: desktopPositions[index],
   delay: 0.06 + index * 0.025
 }));
+
+const bookLinks = [
+  {
+    label: "NotionPress",
+    href: "https://notionpress.com/in/read/phases-unexpected"
+  },
+  {
+    label: "Amazon",
+    href: "https://amzn.to/4u6wdH8"
+  },
+  {
+    label: "Flipkart",
+    href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true"
+  }
+];
 
 const dockItems: DockItem[] = [
   {
@@ -181,36 +201,8 @@ const dockItems: DockItem[] = [
     toneClass: "tone-favicon"
   },
   {
-    type: "link",
-    label: "Book (NotionPress)",
-    href: "https://notionpress.com/in/read/phases-unexpected",
-    iconType: "lucide",
-    icon: BookOpenText,
-    toneClass: "tone-book"
-  },
-  {
-    type: "link",
-    label: "Book (Amazon)",
-    href: "https://amzn.to/4u6wdH8",
-    iconType: "lucide",
-    icon: BookOpenText,
-    toneClass: "tone-book"
-  },
-  {
-    type: "link",
-    label: "Book (Flipkart)",
-    href: "https://www.flipkart.com/phases-unexpected/p/itmd43685e0e6b05?pid=9798904315887&lid=LSTBOK9798904315887LFNWAP&marketplace=FLIPKART&q=phases+unexpected&store=bks&srno=s_1_2&otracker=search&fm=search-autosuggest&iid=13f87641-5a27-4e35-8a6a-9fe87349ffb5.9798904315887.SEARCH&ppt=sp&ppn=sp&ssid=q2f0j8of3k0000001780058149733&qH=ccb1b48cd108a53c&ov_redirect=true&ov_redirect=true",
-    iconType: "lucide",
-    icon: BookOpenText,
-    toneClass: "tone-book"
-  },
-  {
-    type: "link",
+    type: "blogs",
     label: "Blogs",
-    href: blogUrl,
-    iconType: "lucide",
-    icon: NotebookText,
-    toneClass: "tone-blogs"
   },
   {
     type: "link",
@@ -257,10 +249,13 @@ const infoData = {
 
 export default function Home() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [isBlogWindowOpen, setIsBlogWindowOpen] = useState(false);
+  const [activeBlogId, setActiveBlogId] = useState(blogApps[0]?.id ?? "");
   const [activeTab, setActiveTab] = useState<InfoTab>("experience");
   const [isDesktop, setIsDesktop] = useState(false);
   const dragConstraintsRef = useRef<HTMLElement | null>(null);
   const draggedBlogIdRef = useRef<string | null>(null);
+  const activeBlog = blogApps.find((blog) => blog.id === activeBlogId) ?? blogApps[0];
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -287,11 +282,9 @@ export default function Home() {
 
       <section ref={dragConstraintsRef} className="desktop-blog-cloud" aria-label="Blog apps">
         {blogApps.map((blog) => (
-          <motion.a
+          <motion.button
             key={blog.id}
-            href={blog.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            type="button"
             className={`desktop-blog-app ${blog.positionClass}`}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -310,10 +303,10 @@ export default function Home() {
                 draggedBlogIdRef.current = null;
               }, 0);
             }}
-            onClick={(event) => {
-              if (draggedBlogIdRef.current === blog.id) {
-                event.preventDefault();
-              }
+            onClick={() => {
+              if (draggedBlogIdRef.current === blog.id) return;
+              setActiveBlogId(blog.id);
+              setIsBlogWindowOpen(true);
             }}
           >
             <div className={`blog-app-tile ${blog.imageClass}`}>
@@ -321,7 +314,7 @@ export default function Home() {
             </div>
             <span className="blog-app-title">{blog.title}</span>
             <span className="blog-app-date">{blog.date}</span>
-          </motion.a>
+          </motion.button>
         ))}
       </section>
 
@@ -377,6 +370,24 @@ export default function Home() {
                       <span />
                     </span>
                   </span>
+                </button>
+              );
+            }
+
+            if (item.type === "blogs") {
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="dock-icon-button tone-blogs"
+                  onClick={() => {
+                    setActiveBlogId(blogApps[0]?.id ?? "");
+                    setIsBlogWindowOpen(true);
+                  }}
+                  aria-label={item.label}
+                  title={item.label}
+                >
+                  <NotebookText className="h-7 w-7" />
                 </button>
               );
             }
@@ -505,6 +516,83 @@ export default function Home() {
                       <p key={`${line}-${index}`}>{line}</p>
                     ))}
                   </div>
+
+                  {activeTab === "about" ? (
+                    <div className="about-book-links">
+                      <p>Buy my book: Phases: Unexpected</p>
+                      <div>
+                        {bookLinks.map((book) => (
+                          <a key={book.label} href={book.href} target="_blank" rel="noopener noreferrer">
+                            {book.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </section>
+              </div>
+            </motion.article>
+          </motion.section>
+        ) : null}
+
+        {isBlogWindowOpen && activeBlog ? (
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="notes-overlay"
+            onClick={() => setIsBlogWindowOpen(false)}
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 14, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="blog-window"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <header className="notes-window-top">
+                <div className="window-dots" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <p>Blogs</p>
+                <button
+                  type="button"
+                  className="notes-close"
+                  onClick={() => setIsBlogWindowOpen(false)}
+                  aria-label="Close blog window"
+                >
+                  ×
+                </button>
+              </header>
+
+              <div className="blog-window-layout">
+                <aside className="blog-window-sidebar">
+                  {blogApps.map((blog) => (
+                    <button
+                      key={blog.id}
+                      type="button"
+                      onClick={() => setActiveBlogId(blog.id)}
+                      className={activeBlog.id === blog.id ? "blog-item active" : "blog-item"}
+                    >
+                      <strong>{blog.title}</strong>
+                      <span>{blog.date}</span>
+                    </button>
+                  ))}
+                </aside>
+
+                <section className="blog-window-content">
+                  <p className="notes-date">{activeBlog.date}</p>
+                  <h2>{activeBlog.title}</h2>
+                  <p className="blog-window-summary">{activeBlog.summary}</p>
+                  <p className="blog-window-sub">
+                    Same-page app style open ho raha hai. Full post read karna ho to niche button use karo.
+                  </p>
+                  <a href={activeBlog.href} target="_blank" rel="noopener noreferrer" className="blog-window-read">
+                    Read Full Post ↗
+                  </a>
                 </section>
               </div>
             </motion.article>
