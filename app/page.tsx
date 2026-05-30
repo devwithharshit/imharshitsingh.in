@@ -149,66 +149,83 @@ const blogApps: BlogApp[] = rawBlogs.map((blog, index) => ({
 
 const experienceSections: NoteSection[] = [
   {
-    heading: "Book Author - Notion Press",
-    meta: "Apr 2026 - Present | India (Remote)",
+    heading: "Notion Press - Book Author",
+    meta: "Apr 2026 - Present (2 months) | India",
     points: [
-      "Published \"Phases Unexpected\" - a reflective book on growing up, uncertainty, friendships, and personal identity.",
-      "Wrote the book from lived teenage experiences to help readers relate with real emotions and self-discovery.",
-      "Managed self-editing, publishing pipeline, and launch execution across NotionPress, Amazon, and Flipkart."
+      "Phases Unexpected is a heartfelt reflection on the different stages of growing up- childhood memories, teenage confusion, friendships, and the silent questions that shape who we become.",
+      "Written from the perspective of someone still living these moments, the book captures raw emotions and real experiences that many go through but rarely express.",
+      "The book embraces uncertainty, overthinking, and the constant search for meaning while inviting readers to find pieces of their own story within its pages."
     ]
   },
   {
-    heading: "Founder - Studio2Beyond",
-    meta: "Mar 2026 - Present | India (Remote)",
+    heading: "Studio2Beyond - Founder",
+    meta: "Mar 2026 - Present (3 months) | India",
     points: [
-      "Building a multi-channel content, AI, and creativity venture combining multiple projects.",
-      "Leading strategic direction and content planning across blog, YouTube, and experimental formats.",
-      "Documenting real-time learning and project shipping journey for audience growth."
+      "Building a multi-channel content, AI, Creativity, & real exploration venture combining multiple ventures.",
+      "Leading strategic direction and content planning across blog, YouTube, and emerging platforms.",
+      "Developing projects and documenting learning journey in real-time for audience growth."
     ]
   },
   {
     heading: "Chronicles by Harshit - Editor in Chief",
-    meta: "Jun 2025 - Present | Haldwani, Uttarakhand",
+    meta: "Jun 2025 - Present (1 year) | Haldwani",
     points: [
       "Launched \"The Chronicles\" quarterly magazine with strong student/professional participation.",
-      "Onboarded and led editorial interns, quality standards, and submission workflows.",
-      "Delivered early editions with high positive reader feedback and consistent publishing rhythm."
+      "Hired and onboarded 7+ interns for editorial assistance; established editorial guidelines and quality benchmarks.",
+      "Delivered the first magazine editions with 95%+ positive reader feedback."
     ]
   },
   {
-    heading: "Chronicles by Harshit - Founder & Blogger",
+    heading: "Chronicles by Harshit - Founder",
     meta: "May 2025 - Present | India",
     points: [
       "Built and grew personal blog by publishing weekly reflections on life, growth, and learning.",
-      "Architected editorial calendar and lightweight SEO workflow for discoverability.",
-      "Maintained strong consistency and audience retention through authentic storytelling."
+      "Architected editorial workflow, content calendar, and SEO strategy to drive organic traffic and audience retention.",
+      "Driving ~40% month-over-month growth in blog subscribers through authentic storytelling and consistent publication."
+    ]
+  },
+  {
+    heading: "Chronicles by Harshit - Blogger",
+    meta: "May 2025 - Present (1 year 1 month) | India",
+    points: [
+      "Launched and grew personal blog publishing by writing thoughtful pieces weekly on life and self-reflection.",
+      "Architected editorial workflow, content calendar, and SEO strategy to drive organic traffic and audience retention.",
+      "Driving ~40% month-over-month growth in blog subscribers through authentic storytelling and consistent publication."
     ]
   },
   {
     heading: "Content Creator - YouTube",
-    meta: "Jan 2025 - Present | India (Remote)",
+    meta: "Jan 2025 - Present (1 year 5 months) | India",
     points: [
-      "Built YouTube channel from zero by sharing AI learning, writing insights, and creator journey.",
-      "Produced long-form and short-form videos blending technical explanation with personal reflection.",
-      "Improved average watch-time and built an engaged learner-focused audience."
+      "Built YouTube channel from 0 to a few many subscribers in a few months through different content on AI learning, writing, and entrepreneurial mindset.",
+      "Created 70+ videos blending technical AI explanations with personal reflection and storytelling; average watch-time increased 25% over 6 months.",
+      "Establishing thought leadership as a teen voice in AI space with authentic, educational content."
     ]
   },
   {
     heading: "Inspiration Public School - Cultural Club Incharge",
-    meta: "Aug 2025 - Feb 2026 | Full-time",
+    meta: "Aug 2025 - Feb 2026 (7 months) | Haldwani",
     points: [
-      "Led 20+ student members to plan and execute 10+ cultural events.",
-      "Coordinated with school leadership and creative teams for stronger event visibility.",
-      "Managed budgets, schedules, and cross-team execution logistics."
+      "Led 20+ student members in planning and executing 10+ cultural events with 300+ school participants; increased club engagement by 60%.",
+      "Headed and coordinated with school leadership and creative teams to raise visibility of cultural activities across the institution.",
+      "Managed budget, schedules, and cross-functional logistics; recognized in school cabinet for impact."
     ]
   },
   {
     heading: "Inspiration Public School - Student Editor",
-    meta: "Mar 2025 - Aug 2025 | Part-time",
+    meta: "Mar 2025 - Aug 2025 (6 months) | Haldwani",
     points: [
-      "Collaborated on redesign and editing of school REFLECTION magazine editions.",
-      "Managed submission review cycles and editorial publishing standards.",
-      "Contributed to stronger readability, storytelling quality, and page presentation."
+      "Collaborated with 3 co-editors to redesign and edit the school's REFLECTION magazine; improved interest by 35% through refreshed layout and storytelling focus.",
+      "Managed editorial calendar, reviewed submissions, and provided feedback to 40+ student contributors.",
+      "Established editorial voice and standards that became template for future editions."
+    ]
+  },
+  {
+    heading: "Inspiration Public School - Cultural Club Member",
+    meta: "Aug 2024 - Mar 2025 (8 months) | Haldwani, Uttarakhand, India",
+    points: [
+      "Assigned duties as a Culture Club member and worked closely with the Digital Creative Team.",
+      "Managed and actively participated in multiple cultural events and execution tasks."
     ]
   }
 ];
