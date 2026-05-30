@@ -44,6 +44,8 @@ a {
 }
 
 .scene-wrap {
+  --quote-center-top: 62%;
+  --quote-portrait-offset: 170px;
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -71,7 +73,7 @@ a {
 .quote-spotlight {
   position: fixed;
   left: 50%;
-  top: 62%;
+  top: var(--quote-center-top);
   width: min(90vw, 980px);
   height: min(62vh, 420px);
   transform: translate(-50%, -50%);
@@ -85,7 +87,7 @@ a {
 .quote-center-wrap {
   position: fixed;
   left: 50%;
-  top: 62%;
+  top: var(--quote-center-top);
   transform: translate(-50%, -50%);
   z-index: 1;
   width: min(95vw, 1200px);
@@ -95,8 +97,8 @@ a {
 .quote-portrait-wrap {
   position: fixed;
   left: 50%;
-  top: 62%;
-  transform: translate(-50%, -145%);
+  top: calc(var(--quote-center-top) - var(--quote-portrait-offset));
+  transform: translate(-50%, -50%);
   width: 130px;
   height: 130px;
   z-index: 2;
@@ -1041,8 +1043,13 @@ a {
 }
 
 @media (max-width: 900px) {
+  .scene-wrap {
+    --quote-center-top: 67%;
+    --quote-portrait-offset: 120px;
+  }
+
   .quote-center-wrap {
-    top: 67%;
+    top: var(--quote-center-top);
   }
 
   .quote-center {
@@ -1050,17 +1057,17 @@ a {
   }
 
   .quote-spotlight {
-    top: 69%;
+    top: var(--quote-center-top);
     width: 92vw;
     height: 260px;
     filter: blur(44px);
   }
 
   .quote-portrait-wrap {
-    top: 67%;
+    top: calc(var(--quote-center-top) - var(--quote-portrait-offset));
     width: 94px;
     height: 94px;
-    transform: translate(-50%, -170%);
+    transform: translate(-50%, -50%);
   }
 
   .scene-wrap {

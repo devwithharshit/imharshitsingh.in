@@ -147,6 +147,13 @@ const blogApps: BlogApp[] = rawBlogs.map((blog, index) => ({
   delay: 0.06 + index * 0.025
 }));
 
+const desktopIconCutoff = new Date("Jul 1, 2025").getTime();
+
+const desktopBlogApps = blogApps.filter((blog) => {
+  const blogTime = new Date(blog.date).getTime();
+  return Number.isFinite(blogTime) && blogTime >= desktopIconCutoff;
+});
+
 const experienceSections: NoteSection[] = [
   {
     heading: "Notion Press - Book Author",
@@ -491,7 +498,7 @@ export default function Home() {
       </div>
 
       <section ref={dragConstraintsRef} className="desktop-blog-cloud" aria-label="Blog apps">
-        {blogApps.map((blog) => (
+        {desktopBlogApps.map((blog) => (
           <motion.button
             key={blog.id}
             type="button"
