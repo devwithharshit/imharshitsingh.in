@@ -44,8 +44,9 @@ a {
 }
 
 .scene-wrap {
-  --quote-center-top: 62%;
-  --quote-portrait-offset: 220px;
+  --portrait-center-top: 50%;
+  --quote-center-top: 67%;
+  --spotlight-top: 63%;
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -73,7 +74,7 @@ a {
 .quote-spotlight {
   position: fixed;
   left: 50%;
-  top: var(--quote-center-top);
+  top: var(--spotlight-top);
   width: min(90vw, 980px);
   height: min(62vh, 420px);
   transform: translate(-50%, -50%);
@@ -89,7 +90,7 @@ a {
   left: 50%;
   top: var(--quote-center-top);
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 3;
   width: min(95vw, 1200px);
   pointer-events: none;
 }
@@ -97,11 +98,11 @@ a {
 .quote-portrait-wrap {
   position: fixed;
   left: 50%;
-  top: calc(var(--quote-center-top) - var(--quote-portrait-offset));
+  top: var(--portrait-center-top);
   transform: translate(-50%, -50%);
   width: 130px;
   height: 130px;
-  z-index: 2;
+  z-index: 4;
   pointer-events: none;
 }
 
@@ -147,7 +148,7 @@ a {
 
 .desktop-blog-cloud {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.1rem 0.95rem;
@@ -982,33 +983,33 @@ a {
   }
 
   .pos-i {
-    left: 6%;
-    top: 35%;
+    left: 8%;
+    top: 34%;
   }
 
   .pos-j {
-    right: 6%;
-    top: 35%;
+    right: 8%;
+    top: 34%;
   }
 
   .pos-k {
-    left: 15%;
-    top: 47%;
+    left: 20%;
+    top: 50%;
   }
 
   .pos-l {
-    right: 15%;
-    top: 47%;
+    right: 20%;
+    top: 50%;
   }
 
   .pos-m {
-    left: 26%;
-    top: 61%;
+    left: 10%;
+    top: 66%;
   }
 
   .pos-n {
-    right: 26%;
-    top: 61%;
+    right: 10%;
+    top: 66%;
   }
 
   .pos-o {
@@ -1044,8 +1045,9 @@ a {
 
 @media (max-width: 900px) {
   .scene-wrap {
+    --portrait-center-top: 49%;
     --quote-center-top: 67%;
-    --quote-portrait-offset: 142px;
+    --spotlight-top: 63%;
   }
 
   .quote-center-wrap {
@@ -1057,14 +1059,14 @@ a {
   }
 
   .quote-spotlight {
-    top: var(--quote-center-top);
+    top: var(--spotlight-top);
     width: 92vw;
     height: 260px;
     filter: blur(44px);
   }
 
   .quote-portrait-wrap {
-    top: calc(var(--quote-center-top) - var(--quote-portrait-offset));
+    top: var(--portrait-center-top);
     width: 94px;
     height: 94px;
     transform: translate(-50%, -50%);
