@@ -45,8 +45,8 @@ a {
 
 .scene-wrap {
   --portrait-center-top: 50%;
-  --quote-center-top: 67%;
-  --spotlight-top: 63%;
+  --quote-center-top: 63%;
+  --spotlight-top: 61%;
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -984,32 +984,32 @@ a {
 
   .pos-i {
     left: 8%;
-    top: 34%;
+    top: 30%;
   }
 
   .pos-j {
     right: 8%;
-    top: 34%;
+    top: 30%;
   }
 
   .pos-k {
-    left: 20%;
-    top: 50%;
+    left: 16%;
+    top: 45%;
   }
 
   .pos-l {
-    right: 20%;
-    top: 50%;
+    right: 16%;
+    top: 45%;
   }
 
   .pos-m {
-    left: 10%;
-    top: 66%;
+    left: 11%;
+    top: 60%;
   }
 
   .pos-n {
-    right: 10%;
-    top: 66%;
+    right: 11%;
+    top: 60%;
   }
 
   .pos-o {
@@ -1045,9 +1045,9 @@ a {
 
 @media (max-width: 900px) {
   .scene-wrap {
-    --portrait-center-top: 49%;
-    --quote-center-top: 67%;
-    --spotlight-top: 63%;
+    --portrait-center-top: 47%;
+    --quote-center-top: 63%;
+    --spotlight-top: 60%;
   }
 
   .quote-center-wrap {
