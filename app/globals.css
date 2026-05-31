@@ -45,7 +45,7 @@ a {
 
 .scene-wrap {
   --quote-center-top: 62%;
-  --quote-portrait-offset: 170px;
+  --quote-portrait-offset: 220px;
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -1045,7 +1045,7 @@ a {
 @media (max-width: 900px) {
   .scene-wrap {
     --quote-center-top: 67%;
-    --quote-portrait-offset: 120px;
+    --quote-portrait-offset: 142px;
   }
 
   .quote-center-wrap {
