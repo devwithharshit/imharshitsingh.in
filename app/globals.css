@@ -73,7 +73,7 @@ a {
 
 .quote-spotlight {
   position: fixed;
-  left: 50%;
+  left: 50vw;
   top: var(--spotlight-top);
   width: min(90vw, 980px);
   height: min(62vh, 420px);
@@ -87,7 +87,7 @@ a {
 
 .quote-center-wrap {
   position: fixed;
-  left: 50%;
+  left: 50vw;
   top: var(--quote-center-top);
   transform: translate(-50%, -50%);
   z-index: 3;
@@ -97,7 +97,7 @@ a {
 
 .quote-portrait-wrap {
   position: fixed;
-  left: 50%;
+  left: 50vw;
   top: var(--portrait-center-top);
   transform: translate(-50%, -50%);
   width: 130px;
