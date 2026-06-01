@@ -472,19 +472,19 @@ export default function Home() {
     <main className="scene-wrap">
       <div className="quote-spotlight" />
 
-      <motion.div
-        className="quote-portrait-wrap"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
-        <div className="quote-portrait-ring" />
-        <div className="quote-portrait-image-wrap">
-          <Image src="/avatar-cutout.png" alt="Harshit Singh" fill sizes="140px" className="quote-portrait-image" />
-        </div>
-      </motion.div>
+      <div className="focal-center-stack">
+        <motion.div
+          className="quote-portrait-wrap"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div className="quote-portrait-ring" />
+          <div className="quote-portrait-image-wrap">
+            <Image src="/avatar-cutout.png" alt="Harshit Singh" fill sizes="140px" className="quote-portrait-image" />
+          </div>
+        </motion.div>
 
-      <div className="quote-center-wrap">
         <motion.p
           className="quote-center"
           initial={{ opacity: 0, y: 14 }}

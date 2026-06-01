@@ -44,8 +44,8 @@ a {
 }
 
 .scene-wrap {
-  --portrait-center-top: 50%;
-  --quote-center-top: 63%;
+  --focal-center-top: 58%;
+  --focal-stack-gap: 1.15rem;
   --spotlight-top: 61%;
   position: relative;
   min-height: 100vh;
@@ -85,24 +85,25 @@ a {
   pointer-events: none;
 }
 
-.quote-center-wrap {
+.focal-center-stack {
   position: fixed;
-  left: 50vw;
-  top: var(--quote-center-top);
+  left: 50%;
+  top: var(--focal-center-top);
   transform: translate(-50%, -50%);
-  z-index: 3;
+  z-index: 4;
   width: min(95vw, 1200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--focal-stack-gap);
   pointer-events: none;
 }
 
 .quote-portrait-wrap {
-  position: fixed;
-  left: 50vw;
-  top: var(--portrait-center-top);
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 130px;
   height: 130px;
-  z-index: 4;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -1045,17 +1046,14 @@ a {
 
 @media (max-width: 900px) {
   .scene-wrap {
-    --portrait-center-top: 47%;
-    --quote-center-top: 63%;
+    --focal-center-top: 58%;
+    --focal-stack-gap: 0.85rem;
     --spotlight-top: 60%;
-  }
-
-  .quote-center-wrap {
-    top: var(--quote-center-top);
   }
 
   .quote-center {
     letter-spacing: 0.05em;
+    font-size: clamp(1.25rem, 6.3vw, 2.15rem);
   }
 
   .quote-spotlight {
@@ -1066,10 +1064,8 @@ a {
   }
 
   .quote-portrait-wrap {
-    top: var(--portrait-center-top);
     width: 94px;
     height: 94px;
-    transform: translate(-50%, -50%);
   }
 
   .scene-wrap {
