@@ -44,9 +44,9 @@ a {
 }
 
 .scene-wrap {
-  --focal-center-top: 54%;
+  --focal-center-top: 52%;
   --focal-stack-gap: 0.95rem;
-  --spotlight-top: 58%;
+  --spotlight-top: 56%;
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -1046,9 +1046,9 @@ a {
 
 @media (max-width: 900px) {
   .scene-wrap {
-    --focal-center-top: 52%;
+    --focal-center-top: 50%;
     --focal-stack-gap: 0.75rem;
-    --spotlight-top: 57%;
+    --spotlight-top: 55%;
   }
 
   .quote-center {
