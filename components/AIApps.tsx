@@ -13,6 +13,11 @@ const apps = [
     name: "ReachOutBotAI",
     url: "https://reachoutbotai.vercel.app/",
     description: "AI outreach automation. Send smarter, connect faster."
+  },
+  {
+    name: "MeetingPrepAI",
+    url: "https://meetingprepai.vercel.app/",
+    description: "AI-powered meeting preparation to walk in sharper, clearer, and ready."
   }
 ];
 

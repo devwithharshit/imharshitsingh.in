@@ -361,6 +361,10 @@ a {
   color: #101010;
 }
 
+.tone-meeting {
+  background: linear-gradient(155deg, #22c7b8, #1753d8);
+}
+
 .tone-book {
   background: linear-gradient(155deg, #6b50ff, #4128a9);
 }

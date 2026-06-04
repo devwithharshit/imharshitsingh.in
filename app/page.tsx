@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
+  CalendarCheck,
   Github,
   Instagram,
   Linkedin,
@@ -398,6 +399,14 @@ const dockItems: DockItem[] = [
     iconSrc: "/icons/reachoutbotai.ico",
     iconAlt: "ReachOutBotAI",
     toneClass: "tone-favicon"
+  },
+  {
+    type: "link",
+    label: "MeetingPrepAI",
+    href: "https://meetingprepai.vercel.app/",
+    iconType: "lucide",
+    icon: CalendarCheck,
+    toneClass: "tone-meeting"
   },
   {
     type: "blogs",
