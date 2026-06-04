@@ -3,7 +3,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
-  CalendarCheck,
   Github,
   Instagram,
   Linkedin,
@@ -404,9 +403,10 @@ const dockItems: DockItem[] = [
     type: "link",
     label: "MeetingPrepAI",
     href: "https://meetingprepai.vercel.app/",
-    iconType: "lucide",
-    icon: CalendarCheck,
-    toneClass: "tone-meeting"
+    iconType: "image",
+    iconSrc: "/icons/meetingprepai.svg",
+    iconAlt: "MeetingPrepAI",
+    toneClass: "tone-favicon"
   },
   {
     type: "blogs",
