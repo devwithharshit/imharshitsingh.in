@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
+  BookOpen,
   Github,
   Instagram,
   Linkedin,
@@ -66,7 +67,12 @@ interface DockBlogsItem {
   label: string;
 }
 
-type DockItem = DockAboutItem | DockNotesItem | DockBlogsItem | DockLinkItem;
+interface DockMagazineItem {
+  type: "magazine";
+  label: string;
+}
+
+type DockItem = DockAboutItem | DockNotesItem | DockBlogsItem | DockMagazineItem | DockLinkItem;
 
 const profileHeadline =
   "AI Builder 🤖 | Published Author ✍🏻 | Blending AI, Writing & Storytelling | Building Studio2Beyond | 18-Year-Old Indie Creator | Crafting My Path | Sharing My Journey 🚀";
@@ -339,6 +345,7 @@ const bookLinks = [
 ];
 
 const bookCoverSrc = "/phases-unexpected-cover.png";
+const magazineUrl = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/mindscapes-july-sept-edition";
 
 const dockItems: DockItem[] = [
   {
@@ -413,6 +420,10 @@ const dockItems: DockItem[] = [
     label: "Blogs"
   },
   {
+    type: "magazine",
+    label: "Mindscapes"
+  },
+  {
     type: "link",
     label: "Email",
     href: "mailto:hi@imharshitsingh.in",
@@ -436,6 +447,7 @@ export default function Home() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isBlogWindowOpen, setIsBlogWindowOpen] = useState(false);
+  const [isMagazineOpen, setIsMagazineOpen] = useState(false);
   const [activeBlogId, setActiveBlogId] = useState(blogApps[0]?.id ?? "");
   const [activeTab, setActiveTab] = useState<NotesTab>("experience");
   const [isDesktop, setIsDesktop] = useState(false);
@@ -456,6 +468,7 @@ export default function Home() {
     setIsProfileOpen(true);
     setIsInfoOpen(false);
     setIsBlogWindowOpen(false);
+    setIsMagazineOpen(false);
   };
 
   const openNotes = (tab: NotesTab = "experience") => {
@@ -463,6 +476,7 @@ export default function Home() {
     setIsInfoOpen(true);
     setIsProfileOpen(false);
     setIsBlogWindowOpen(false);
+    setIsMagazineOpen(false);
   };
 
   const openBlogs = (blogId?: string) => {
@@ -470,6 +484,14 @@ export default function Home() {
     setIsBlogWindowOpen(true);
     setIsProfileOpen(false);
     setIsInfoOpen(false);
+    setIsMagazineOpen(false);
+  };
+
+  const openMagazine = () => {
+    setIsMagazineOpen(true);
+    setIsProfileOpen(false);
+    setIsInfoOpen(false);
+    setIsBlogWindowOpen(false);
   };
 
   const blogParagraphs =
@@ -604,6 +626,24 @@ export default function Home() {
                   title={item.label}
                 >
                   <NotebookText className="h-7 w-7" />
+                </button>
+              );
+            }
+
+            if (item.type === "magazine") {
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="dock-icon-button tone-magazine"
+                  onClick={openMagazine}
+                  aria-label={item.label}
+                  title={item.label}
+                >
+                  <span className="magazine-dock-icon" aria-hidden="true">
+                    <BookOpen className="h-7 w-7" />
+                    <span>M</span>
+                  </span>
                 </button>
               );
             }
@@ -914,6 +954,59 @@ export default function Home() {
                     ))}
                   </div>
                 </section>
+              </div>
+            </motion.article>
+          </motion.section>
+        ) : null}
+
+        {isMagazineOpen ? (
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="notes-overlay"
+            onClick={() => setIsMagazineOpen(false)}
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 14, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="safari-window magazine-window"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <header className="safari-topbar">
+                <WindowTrafficLights onClose={() => setIsMagazineOpen(false)} />
+                <div className="safari-address" aria-label="Magazine page URL">
+                  <span className="safari-lock">https://</span>
+                  <span>harshitsinghofcl.wixsite.com/chronicles-by-h/mindscapes-july-sept-edition</span>
+                </div>
+                <button
+                  type="button"
+                  className="safari-close"
+                  onClick={() => setIsMagazineOpen(false)}
+                  aria-label="Close magazine window"
+                >
+                  ×
+                </button>
+              </header>
+
+              <div className="magazine-frame-shell">
+                <iframe
+                  title="Mindscapes July-Sept Edition flipbook"
+                  src={magazineUrl}
+                  className="magazine-frame"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allow="fullscreen"
+                />
+
+                <div className="magazine-fallback">
+                  <p>If Wix blocks the embedded flipbook, open the original magazine page.</p>
+                  <a href={magazineUrl} target="_blank" rel="noopener noreferrer">
+                    Open original
+                  </a>
+                </div>
               </div>
             </motion.article>
           </motion.section>
