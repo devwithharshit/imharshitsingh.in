@@ -41,6 +41,14 @@ interface CertificationItem {
   description: string;
 }
 
+interface MagazinePage {
+  eyebrow: string;
+  title: string;
+  body: string;
+  note?: string;
+  toneClass: string;
+}
+
 interface DockLinkItem {
   type: "link";
   label: string;
@@ -345,7 +353,67 @@ const bookLinks = [
 ];
 
 const bookCoverSrc = "/phases-unexpected-cover.png";
-const magazineUrl = "https://harshitsinghofcl.wixsite.com/chronicles-by-h/mindscapes-july-sept-edition";
+
+const magazinePages: MagazinePage[] = [
+  {
+    eyebrow: "Chronicles by Harshit",
+    title: "Mindscapes",
+    body: "July-Sept Edition\nA quarterly magazine experience for reflections, ideas, storytelling, and young creative voices.",
+    note: "Site-native showcase",
+    toneClass: "magazine-page-cover"
+  },
+  {
+    eyebrow: "Editor's Desk",
+    title: "A note before you read",
+    body:
+      "Mindscapes is built around honest thoughts, student expression, and the small observations that shape how we see life. This edition is presented here as an in-site magazine app instead of sending you away.",
+    toneClass: "magazine-page-paper"
+  },
+  {
+    eyebrow: "Theme",
+    title: "Thoughts in motion",
+    body:
+      "The issue explores inner conversations, growth, creativity, learning, and the unexpected moments that make stories worth telling.",
+    note: "Reflect. Write. Build.",
+    toneClass: "magazine-page-blue"
+  },
+  {
+    eyebrow: "Inside",
+    title: "Essays, reflections, and creative pieces",
+    body:
+      "A curated reading room for pieces that feel personal, thoughtful, and grounded in real experience. The goal is simple: make readers pause for a moment and think.",
+    toneClass: "magazine-page-cream"
+  },
+  {
+    eyebrow: "Chronicles",
+    title: "A magazine by young voices",
+    body:
+      "The Chronicles is more than a blog extension. It is an editorial space for student writing, creative discipline, collaboration, and building a publication from scratch.",
+    toneClass: "magazine-page-green"
+  },
+  {
+    eyebrow: "Experience",
+    title: "Read it like a flipbook",
+    body:
+      "Use the controls below to move through this showcase. The interaction stays inside imharshitsingh.in, so the desktop OS feeling remains intact.",
+    note: "Own-site reader",
+    toneClass: "magazine-page-dark"
+  },
+  {
+    eyebrow: "Creator",
+    title: "Harshit Singh",
+    body:
+      "AI builder, published author, and editor-in-chief of Chronicles by Harshit, blending writing, storytelling, and creative technology.",
+    toneClass: "magazine-page-paper"
+  },
+  {
+    eyebrow: "End",
+    title: "Stay simple. Stay kind.",
+    body:
+      "This internal showcase is ready for the real PDF pages whenever they are added as assets. Until then, it presents the magazine as a polished app-like experience on the portfolio desktop.",
+    toneClass: "magazine-page-cover"
+  }
+];
 
 const dockItems: DockItem[] = [
   {
@@ -448,6 +516,7 @@ export default function Home() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isBlogWindowOpen, setIsBlogWindowOpen] = useState(false);
   const [isMagazineOpen, setIsMagazineOpen] = useState(false);
+  const [activeMagazineSpread, setActiveMagazineSpread] = useState(0);
   const [activeBlogId, setActiveBlogId] = useState(blogApps[0]?.id ?? "");
   const [activeTab, setActiveTab] = useState<NotesTab>("experience");
   const [isDesktop, setIsDesktop] = useState(false);
@@ -456,6 +525,8 @@ export default function Home() {
 
   const activeBlog = blogApps.find((blog) => blog.id === activeBlogId) ?? blogApps[0];
   const activeBlogContent = activeBlog ? blogContentById[activeBlog.id] : undefined;
+  const magazineSpreadCount = Math.ceil(magazinePages.length / 2);
+  const activeMagazinePages = magazinePages.slice(activeMagazineSpread * 2, activeMagazineSpread * 2 + 2);
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -489,9 +560,18 @@ export default function Home() {
 
   const openMagazine = () => {
     setIsMagazineOpen(true);
+    setActiveMagazineSpread(0);
     setIsProfileOpen(false);
     setIsInfoOpen(false);
     setIsBlogWindowOpen(false);
+  };
+
+  const showPreviousMagazineSpread = () => {
+    setActiveMagazineSpread((current) => Math.max(0, current - 1));
+  };
+
+  const showNextMagazineSpread = () => {
+    setActiveMagazineSpread((current) => Math.min(magazineSpreadCount - 1, current + 1));
   };
 
   const blogParagraphs =
@@ -975,11 +1055,11 @@ export default function Home() {
               className="safari-window magazine-window"
               onClick={(event) => event.stopPropagation()}
             >
-              <header className="safari-topbar">
+              <header className="safari-topbar magazine-topbar">
                 <WindowTrafficLights onClose={() => setIsMagazineOpen(false)} />
-                <div className="safari-address" aria-label="Magazine page URL">
-                  <span className="safari-lock">https://</span>
-                  <span>harshitsinghofcl.wixsite.com/chronicles-by-h/mindscapes-july-sept-edition</span>
+                <div className="magazine-titlebar" aria-label="Magazine app title">
+                  <BookOpen aria-hidden="true" size={16} />
+                  <span>Mindscapes Magazine</span>
                 </div>
                 <button
                   type="button"
@@ -991,22 +1071,53 @@ export default function Home() {
                 </button>
               </header>
 
-              <div className="magazine-frame-shell">
-                <iframe
-                  title="Mindscapes July-Sept Edition flipbook"
-                  src={magazineUrl}
-                  className="magazine-frame"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allow="fullscreen"
-                />
+              <div className="magazine-app-shell">
+                <aside className="magazine-issue-panel" aria-label="Magazine details">
+                  <span className="magazine-kicker">Magazine app</span>
+                  <h2>Mindscapes</h2>
+                  <p>July-Sept Edition by Chronicles by Harshit.</p>
+                  <div className="magazine-stats">
+                    <span>8 pages</span>
+                    <span>Internal viewer</span>
+                    <span>No embed</span>
+                  </div>
+                </aside>
 
-                <div className="magazine-fallback">
-                  <p>If Wix blocks the embedded flipbook, open the original magazine page.</p>
-                  <a href={magazineUrl} target="_blank" rel="noopener noreferrer">
-                    Open original
-                  </a>
-                </div>
+                <section className="magazine-reader" aria-label="Mindscapes flipbook">
+                  <div className="magazine-book">
+                    {activeMagazinePages.map((page, index) => (
+                      <article className={`magazine-page ${page.toneClass}`} key={`${page.title}-${index}`}>
+                        <span className="magazine-page-number">
+                          {String(activeMagazineSpread * 2 + index + 1).padStart(2, "0")}
+                        </span>
+                        <p className="magazine-page-eyebrow">{page.eyebrow}</p>
+                        <h3>{page.title}</h3>
+                        <p className="magazine-page-body">{page.body}</p>
+                        {page.note ? <span className="magazine-page-note">{page.note}</span> : null}
+                      </article>
+                    ))}
+                  </div>
+
+                  <div className="magazine-controls">
+                    <button
+                      type="button"
+                      onClick={showPreviousMagazineSpread}
+                      disabled={activeMagazineSpread === 0}
+                    >
+                      Previous
+                    </button>
+                    <span>
+                      Spread {activeMagazineSpread + 1} / {magazineSpreadCount}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={showNextMagazineSpread}
+                      disabled={activeMagazineSpread === magazineSpreadCount - 1}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </section>
               </div>
             </motion.article>
           </motion.section>
