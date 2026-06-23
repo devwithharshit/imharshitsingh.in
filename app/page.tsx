@@ -41,12 +41,14 @@ interface CertificationItem {
   description: string;
 }
 
-interface MagazinePage {
-  eyebrow: string;
+interface MagazineEdition {
+  id: string;
   title: string;
-  body: string;
-  note?: string;
-  toneClass: string;
+  label: string;
+  date: string;
+  pageCount: number;
+  pagePath: string;
+  status: "available" | "coming-soon";
 }
 
 interface DockLinkItem {
@@ -354,64 +356,24 @@ const bookLinks = [
 
 const bookCoverSrc = "/phases-unexpected-cover.png";
 
-const magazinePages: MagazinePage[] = [
+const magazineEditions: MagazineEdition[] = [
   {
-    eyebrow: "Chronicles by Harshit",
+    id: "mindscapes-2025",
     title: "Mindscapes",
-    body: "July-Sept Edition\nA quarterly magazine experience for reflections, ideas, storytelling, and young creative voices.",
-    note: "Site-native showcase",
-    toneClass: "magazine-page-cover"
+    label: "Edition #1",
+    date: "July-September 2025",
+    pageCount: 50,
+    pagePath: "/magazines/mindscapes-2025",
+    status: "available"
   },
   {
-    eyebrow: "Editor's Desk",
-    title: "A note before you read",
-    body:
-      "Mindscapes is built around honest thoughts, student expression, and the small observations that shape how we see life. This edition is presented here as an in-site magazine app instead of sending you away.",
-    toneClass: "magazine-page-paper"
-  },
-  {
-    eyebrow: "Theme",
-    title: "Thoughts in motion",
-    body:
-      "The issue explores inner conversations, growth, creativity, learning, and the unexpected moments that make stories worth telling.",
-    note: "Reflect. Write. Build.",
-    toneClass: "magazine-page-blue"
-  },
-  {
-    eyebrow: "Inside",
-    title: "Essays, reflections, and creative pieces",
-    body:
-      "A curated reading room for pieces that feel personal, thoughtful, and grounded in real experience. The goal is simple: make readers pause for a moment and think.",
-    toneClass: "magazine-page-cream"
-  },
-  {
-    eyebrow: "Chronicles",
-    title: "A magazine by young voices",
-    body:
-      "The Chronicles is more than a blog extension. It is an editorial space for student writing, creative discipline, collaboration, and building a publication from scratch.",
-    toneClass: "magazine-page-green"
-  },
-  {
-    eyebrow: "Experience",
-    title: "Read it like a flipbook",
-    body:
-      "Use the controls below to move through this showcase. The interaction stays inside imharshitsingh.in, so the desktop OS feeling remains intact.",
-    note: "Own-site reader",
-    toneClass: "magazine-page-dark"
-  },
-  {
-    eyebrow: "Creator",
-    title: "Harshit Singh",
-    body:
-      "AI builder, published author, and editor-in-chief of Chronicles by Harshit, blending writing, storytelling, and creative technology.",
-    toneClass: "magazine-page-paper"
-  },
-  {
-    eyebrow: "End",
-    title: "Stay simple. Stay kind.",
-    body:
-      "This internal showcase is ready for the real PDF pages whenever they are added as assets. Until then, it presents the magazine as a polished app-like experience on the portfolio desktop.",
-    toneClass: "magazine-page-cover"
+    id: "edition-2",
+    title: "The Chronicles",
+    label: "Edition #2",
+    date: "Launching soon",
+    pageCount: 0,
+    pagePath: "",
+    status: "coming-soon"
   }
 ];
 
@@ -516,6 +478,7 @@ export default function Home() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isBlogWindowOpen, setIsBlogWindowOpen] = useState(false);
   const [isMagazineOpen, setIsMagazineOpen] = useState(false);
+  const [activeMagazineEditionId, setActiveMagazineEditionId] = useState(magazineEditions[0].id);
   const [activeMagazineSpread, setActiveMagazineSpread] = useState(0);
   const [activeBlogId, setActiveBlogId] = useState(blogApps[0]?.id ?? "");
   const [activeTab, setActiveTab] = useState<NotesTab>("experience");
@@ -525,8 +488,18 @@ export default function Home() {
 
   const activeBlog = blogApps.find((blog) => blog.id === activeBlogId) ?? blogApps[0];
   const activeBlogContent = activeBlog ? blogContentById[activeBlog.id] : undefined;
-  const magazineSpreadCount = Math.ceil(magazinePages.length / 2);
-  const activeMagazinePages = magazinePages.slice(activeMagazineSpread * 2, activeMagazineSpread * 2 + 2);
+  const activeMagazineEdition =
+    magazineEditions.find((edition) => edition.id === activeMagazineEditionId) ?? magazineEditions[0];
+  const magazineSpreadCount = isDesktop
+    ? 1 + Math.ceil(Math.max(0, activeMagazineEdition.pageCount - 1) / 2)
+    : activeMagazineEdition.pageCount;
+  const activeMagazinePageNumbers = isDesktop
+    ? activeMagazineSpread === 0
+      ? [1]
+      : [activeMagazineSpread * 2, activeMagazineSpread * 2 + 1].filter(
+          (pageNumber) => pageNumber <= activeMagazineEdition.pageCount
+        )
+    : [activeMagazineSpread + 1];
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -534,6 +507,10 @@ export default function Home() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setActiveMagazineSpread(0);
+  }, [isDesktop]);
 
   const openProfile = () => {
     setIsProfileOpen(true);
@@ -560,10 +537,19 @@ export default function Home() {
 
   const openMagazine = () => {
     setIsMagazineOpen(true);
+    setActiveMagazineEditionId(magazineEditions[0].id);
     setActiveMagazineSpread(0);
     setIsProfileOpen(false);
     setIsInfoOpen(false);
     setIsBlogWindowOpen(false);
+  };
+
+  const selectMagazineEdition = (editionId: string) => {
+    const edition = magazineEditions.find((item) => item.id === editionId);
+    if (!edition || edition.status !== "available") return;
+
+    setActiveMagazineEditionId(editionId);
+    setActiveMagazineSpread(0);
   };
 
   const showPreviousMagazineSpread = () => {
@@ -1072,31 +1058,51 @@ export default function Home() {
               </header>
 
               <div className="magazine-app-shell">
-                <aside className="magazine-issue-panel" aria-label="Magazine details">
-                  <span className="magazine-kicker">Magazine app</span>
-                  <h2>Mindscapes</h2>
-                  <p>July-Sept Edition by Chronicles by Harshit.</p>
-                  <div className="magazine-stats">
-                    <span>8 pages</span>
-                    <span>Internal viewer</span>
-                    <span>No embed</span>
-                  </div>
-                </aside>
+                <section className="magazine-reader" aria-label="The Chronicles magazine flipbook">
+                  <div className="magazine-reader-heading">
+                    <div>
+                      <span className="magazine-kicker">The Chronicles by Harshit</span>
+                      <h2>{activeMagazineEdition.title}</h2>
+                      <p>
+                        {activeMagazineEdition.label} · {activeMagazineEdition.date}
+                      </p>
+                    </div>
 
-                <section className="magazine-reader" aria-label="Mindscapes flipbook">
-                  <div className="magazine-book">
-                    {activeMagazinePages.map((page, index) => (
-                      <article className={`magazine-page ${page.toneClass}`} key={`${page.title}-${index}`}>
-                        <span className="magazine-page-number">
-                          {String(activeMagazineSpread * 2 + index + 1).padStart(2, "0")}
-                        </span>
-                        <p className="magazine-page-eyebrow">{page.eyebrow}</p>
-                        <h3>{page.title}</h3>
-                        <p className="magazine-page-body">{page.body}</p>
-                        {page.note ? <span className="magazine-page-note">{page.note}</span> : null}
-                      </article>
-                    ))}
+                    <label className="magazine-edition-picker">
+                      <span>Choose edition</span>
+                      <select
+                        value={activeMagazineEditionId}
+                        onChange={(event) => selectMagazineEdition(event.target.value)}
+                      >
+                        {magazineEditions.map((edition) => (
+                          <option key={edition.id} value={edition.id} disabled={edition.status === "coming-soon"}>
+                            {edition.label} · {edition.date}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                   </div>
+
+                  <motion.div
+                    className={activeMagazinePageNumbers.length === 1 ? "magazine-book single-page" : "magazine-book"}
+                    key={`${activeMagazineEdition.id}-${activeMagazineSpread}`}
+                    initial={{ opacity: 0.35, rotateY: activeMagazineSpread === 0 ? 0 : -5, scale: 0.985 }}
+                    animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+                    transition={{ duration: 0.28, ease: "easeOut" }}
+                  >
+                    {activeMagazinePageNumbers.map((pageNumber) => (
+                      <div className="magazine-page-image-wrap" key={pageNumber}>
+                        <Image
+                          src={`${activeMagazineEdition.pagePath}/page-${String(pageNumber).padStart(2, "0")}.jpg`}
+                          alt={`${activeMagazineEdition.title}, page ${pageNumber}`}
+                          width={992}
+                          height={1403}
+                          className="magazine-page-image"
+                          priority={pageNumber <= 2}
+                        />
+                      </div>
+                    ))}
+                  </motion.div>
 
                   <div className="magazine-controls">
                     <button
@@ -1107,7 +1113,9 @@ export default function Home() {
                       Previous
                     </button>
                     <span>
-                      Spread {activeMagazineSpread + 1} / {magazineSpreadCount}
+                      {activeMagazinePageNumbers[0] === 1
+                        ? "Cover"
+                        : `Page${activeMagazinePageNumbers.length > 1 ? "s" : ""} ${activeMagazinePageNumbers.join("-")}`} · {activeMagazineSpread + 1} / {magazineSpreadCount}
                     </span>
                     <button
                       type="button"
