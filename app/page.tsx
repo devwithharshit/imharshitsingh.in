@@ -419,33 +419,6 @@ const dockItems: DockItem[] = [
     toneClass: "tone-instagram"
   },
   {
-    type: "link",
-    label: "ReProfiled",
-    href: "https://reprofiled.vercel.app/",
-    iconType: "image",
-    iconSrc: "/icons/reprofiled.svg",
-    iconAlt: "ReProfiled",
-    toneClass: "tone-favicon"
-  },
-  {
-    type: "link",
-    label: "ReachOutBotAI",
-    href: "https://reachoutbotai.vercel.app/",
-    iconType: "image",
-    iconSrc: "/icons/reachoutbotai.ico",
-    iconAlt: "ReachOutBotAI",
-    toneClass: "tone-favicon"
-  },
-  {
-    type: "link",
-    label: "MeetingPrepAI",
-    href: "https://meetingprepai.vercel.app/",
-    iconType: "image",
-    iconSrc: "/icons/meetingprepai.svg",
-    iconAlt: "MeetingPrepAI",
-    toneClass: "tone-favicon"
-  },
-  {
     type: "blogs",
     label: "Blogs"
   },
