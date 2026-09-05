@@ -367,13 +367,13 @@ const magazineEditions: MagazineEdition[] = [
     status: "available"
   },
   {
-    id: "edition-2",
-    title: "The Chronicles",
+    id: "chronicles-unfurled-2026",
+    title: "Chronicles Unfurled",
     label: "Edition #2",
-    date: "Launching soon",
-    pageCount: 0,
-    pagePath: "",
-    status: "coming-soon"
+    date: "July-September 2026",
+    pageCount: 56,
+    pagePath: "/magazines/chronicles-unfurled-2026",
+    status: "available"
   }
 ];
 
