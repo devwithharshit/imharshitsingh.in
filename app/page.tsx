@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   BookOpen,
   Github,
-  Instagram,
   Linkedin,
   Mail,
   NotebookText,
@@ -409,14 +408,6 @@ const dockItems: DockItem[] = [
     iconType: "lucide",
     icon: Github,
     toneClass: "tone-github"
-  },
-  {
-    type: "link",
-    label: "Instagram",
-    href: "https://instagram.com/imsinghharshit",
-    iconType: "lucide",
-    icon: Instagram,
-    toneClass: "tone-instagram"
   },
   {
     type: "blogs",
