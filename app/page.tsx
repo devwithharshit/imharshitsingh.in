@@ -456,6 +456,7 @@ export default function Home() {
   const [activeBlogId, setActiveBlogId] = useState(blogApps[0]?.id ?? "");
   const [activeTab, setActiveTab] = useState<NotesTab>("experience");
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isAnnouncementOpen, setIsAnnouncementOpen] = useState(true);
   const dragConstraintsRef = useRef<HTMLElement | null>(null);
   const draggedBlogIdRef = useRef<string | null>(null);
 
@@ -517,6 +518,16 @@ export default function Home() {
     setIsBlogWindowOpen(false);
   };
 
+  const openMagazineToEdition = (editionId: string) => {
+    setIsAnnouncementOpen(false);
+    setIsMagazineOpen(true);
+    setActiveMagazineEditionId(editionId);
+    setActiveMagazineSpread(0);
+    setIsProfileOpen(false);
+    setIsInfoOpen(false);
+    setIsBlogWindowOpen(false);
+  };
+
   const selectMagazineEdition = (editionId: string) => {
     const edition = magazineEditions.find((item) => item.id === editionId);
     if (!edition || edition.status !== "available") return;
@@ -540,6 +551,58 @@ export default function Home() {
 
   return (
     <main className="scene-wrap">
+      {isAnnouncementOpen ? (
+        <motion.div
+          className="announcement-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setIsAnnouncementOpen(false)}
+        >
+          <motion.div
+            className="announcement-card"
+            initial={{ opacity: 0, y: 18, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.97 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="announcement-close"
+              onClick={() => setIsAnnouncementOpen(false)}
+              aria-label="Close announcement"
+            >
+              <X size={16} />
+            </button>
+            <span className="announcement-eyebrow">New Edition Just Dropped</span>
+            <h2 className="announcement-title">Chronicles Unfurled</h2>
+            <p className="announcement-subtitle">Edition #2 · July-September 2026</p>
+            <p className="announcement-body">
+              Life lessons, health &amp; well-being, tech &amp; AI, and more &mdash; straight from young voices.
+              Read the second edition now.
+            </p>
+            <div className="announcement-actions">
+              <button
+                type="button"
+                className="announcement-cta"
+                onClick={() => openMagazineToEdition("chronicles-unfurled-2026")}
+              >
+                <BookOpen size={16} aria-hidden="true" />
+                Read Now
+              </button>
+              <button
+                type="button"
+                className="announcement-dismiss"
+                onClick={() => setIsAnnouncementOpen(false)}
+              >
+                Maybe later
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      ) : null}
+
       <div className="quote-spotlight" />
 
       <div className="focal-center-stack">
