@@ -570,7 +570,7 @@ export default function Home() {
             <h2 className="announcement-title">Chronicles Unfurled</h2>
             <p className="announcement-subtitle">Edition #2 · July-September 2026</p>
             <p className="announcement-body">
-              Life lessons, health &amp; well-being, tech &amp; AI, and more &mdash; straight from young voices.
+              Life lessons, health &amp; well-being, tech &amp; AI, and more; straight from young voices.
               Read the second edition now.
             </p>
             <div className="announcement-actions">
